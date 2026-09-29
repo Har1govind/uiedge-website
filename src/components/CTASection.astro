@@ -1,0 +1,321 @@
+---
+/**
+ * CTASection — "Have a project in mind?" + form + newsletter.
+ * [measured] fields: Your name*, E-mail*, Message; Send Message;
+ * terms line; "Let's talk." bullets; "Ask directly"; newsletter.
+ * Form posts nowhere yet (backend decision deferred) — shows a
+ * client-side success state only.
+ */
+---
+
+<section class="cta" id="contact">
+  <div class="container cta__grid">
+    <div class="cta__intro">
+      <h2 class="cta__title">Have a project in mind?</h2>
+      <p class="cta__subtitle">
+        Let’s talk. Tell us about your product — a website, an app, a SaaS tool, or an idea you want scoped.
+      </p>
+
+      <ul class="cta__bullets">
+        <li class="cta__bullet">
+          <span class="cta__bullet-title">Quick response.</span>
+          <span class="cta__bullet-text">If you’re ready to create and collaborate, we’d love to hear from you.</span>
+        </li>
+        <li class="cta__bullet">
+          <span class="cta__bullet-title">Clear next steps.</span>
+          <span class="cta__bullet-text">After the discovery call, we’ll provide you with a detailed plan and timeline.</span>
+        </li>
+      </ul>
+
+      <div class="cta__card">
+        <div>
+          <p class="cta__card-role">Founder<br />at UiEdge</p>
+          <p class="cta__card-name">⟨Founder name⟩</p>
+        </div>
+        <a class="cta__ask" href="mailto:admin@uiedge.in">Ask directly →</a>
+      </div>
+    </div>
+
+    <div class="cta__form-wrap">
+      <form class="cta__form" data-cta-form novalidate>
+        <label class="cta__field">
+          <span class="cta__label">Your name*</span>
+          <input class="cta__input" type="text" name="name" autocomplete="name" required placeholder="Your name" />
+        </label>
+        <label class="cta__field">
+          <span class="cta__label">E-mail*</span>
+          <input class="cta__input" type="email" name="email" autocomplete="email" required placeholder="you@email.com" />
+        </label>
+        <label class="cta__field">
+          <span class="cta__label">Message</span>
+          <textarea class="cta__input cta__input--area" name="message" rows="4" placeholder="Tell us about your project…"></textarea>
+        </label>
+        <button class="btn btn--accent cta__submit" type="submit">Send Message</button>
+        <p class="cta__terms">
+          By submitting, you agree to our <a href="/legal/terms-of-service">Terms</a> and
+          <a href="/legal/privacy-policy">Privacy Policy</a>
+        </p>
+      </form>
+
+      <div class="cta__newsletter">
+        <p class="cta__newsletter-title">Newsletter</p>
+        <form class="cta__newsletter-form" data-newsletter>
+          <label class="sr-only" for="newsletter-email">Email address</label>
+          <input class="cta__input" id="newsletter-email" type="email" name="email" autocomplete="email" placeholder="Join our newsletter and stay updated on the latest trends in digital design." />
+          <button class="btn btn--accent cta__newsletter-btn" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    padding-block: var(--section-pad);
+    background: var(--color-bg-alt);
+  }
+
+  .cta__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+  }
+
+  .cta__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .cta__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+  }
+
+  .cta__subtitle {
+    max-width: 30rem;
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body);
+    color: var(--color-text-inverse-secondary);
+  }
+
+  .cta__bullets {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    margin-top: var(--space-4);
+  }
+
+  .cta__bullet {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .cta__bullet-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+  }
+
+  .cta__bullet-text {
+    font-size: var(--fs-small);
+    color: var(--color-text-inverse-secondary);
+    max-width: 26rem;
+  }
+
+  .cta__card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    width: 100%;
+    max-width: 30rem;
+    padding: var(--space-5);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    margin-top: var(--space-4);
+  }
+
+  .cta__card-role {
+    font-size: var(--fs-label);
+    color: var(--color-text-muted);
+    line-height: var(--lh-tight);
+    margin-bottom: var(--space-2);
+  }
+
+  .cta__card-name {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+  }
+
+  .cta__ask {
+    font-size: var(--fs-label);
+    color: var(--color-accent-ink);
+    border-bottom: 1px solid var(--color-accent-ink);
+    padding-bottom: 2px;
+    flex-shrink: 0;
+  }
+
+  .cta__form-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+
+  .cta__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .cta__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .cta__label {
+    font-size: var(--fs-label);
+    color: var(--color-text-inverse-muted);
+  }
+
+  .cta__input {
+    width: 100%;
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: var(--fs-body);
+    transition:
+      border-color var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out);
+  }
+
+  .cta__input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .cta__input:focus-visible {
+    outline: none;
+    border-color: var(--color-accent-ink);
+    box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.12);
+  }
+
+  .cta__input--area {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .cta__submit {
+    align-self: flex-start;
+    font-size: var(--fs-body);
+    padding: var(--space-3) var(--space-7);
+    margin-top: var(--space-2);
+  }
+
+  .cta__terms {
+    font-size: var(--fs-label);
+    color: var(--color-text-inverse-muted);
+  }
+
+  .cta__terms a {
+    color: var(--color-text-inverse-secondary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .cta__terms a:hover {
+    color: var(--color-accent);
+  }
+
+  .cta__newsletter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-inverse);
+  }
+
+  .cta__newsletter-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+  }
+
+  .cta__newsletter-form {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .cta__newsletter-btn {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 1199px) {
+    .cta__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 809px) {
+    .cta__title {
+      font-size: var(--fs-h2);
+    }
+
+    .cta__newsletter-form {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-cta-form]");
+  if (form) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const submit = form.querySelector<HTMLButtonElement>(".cta__submit");
+      if (submit) {
+        submit.textContent = "Message sent ✓";
+        submit.disabled = true;
+      }
+      form.reset();
+    });
+  }
+
+  const newsletter = document.querySelector<HTMLFormElement>("[data-newsletter]");
+  if (newsletter) {
+    newsletter.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const btn = newsletter.querySelector<HTMLButtonElement>(".cta__newsletter-btn");
+      const input = newsletter.querySelector<HTMLInputElement>("input[type='email']");
+      if (input && !input.checkValidity()) {
+        input.reportValidity();
+        return;
+      }
+      if (btn) {
+        btn.textContent = "Subscribed ✓";
+        btn.disabled = true;
+      }
+      if (input) input.value = "";
+    });
+  }
+</script>

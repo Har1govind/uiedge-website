@@ -1,0 +1,263 @@
+---
+/**
+ * Blog post detail.
+ * Byline (POST_AUTHOR) + shared body (see POST_BODY) + Previous/Next chain
+ * + "Let's keep in touch." + CTA.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CTASection from "../../components/CTASection.astro";
+import { BLOG_POSTS, POST_AUTHOR, POST_BODY } from "../../data/blog";
+
+export function getStaticPaths() {
+  return BLOG_POSTS.map((post, index) => ({
+    params: { slug: post.slug },
+    props: { post, index },
+  }));
+}
+
+const { post, index } = Astro.props;
+const previous = index > 0 ? BLOG_POSTS[index - 1] : null;
+const next = index < BLOG_POSTS.length - 1 ? BLOG_POSTS[index + 1] : null;
+
+const title = post.title;
+const description = post.excerpt;
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="post">
+    <header class="post-hero">
+      <div class="container post-hero__inner">
+        <p class="post-hero__date">{post.date}</p>
+        <h1 class="post-hero__title">{post.title}</h1>
+        <p class="post-hero__excerpt">{post.excerpt}</p>
+        <div class="post-hero__byline">
+          <span class="post-hero__byline-name">{POST_AUTHOR.name}</span>
+          <span class="post-hero__byline-role">{POST_AUTHOR.role}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="container post-image">
+      <img src={post.image} alt="" width="1520" height="900" loading="eager" decoding="async" />
+    </div>
+
+    <div class="container post-body">
+      {POST_BODY.map((block) => {
+        if (block.type === "p") return <p>{block.text}</p>;
+        if (block.type === "h2") return <h2>{block.text}</h2>;
+        if (block.type === "h3") return <h3>{block.text}</h3>;
+        if (block.type === "ul")
+          return (
+            <ul>
+              {block.items.map((item) => <li>{item}</li>)}
+            </ul>
+          );
+        return null;
+      })}
+    </div>
+
+    {(previous || next) && (
+      <nav class="container post-chain" aria-label="Post navigation">
+        {previous && (
+          <a class="post-chain__link post-chain__link--prev" href={`/blog/${previous.slug}`}>
+            <span class="post-chain__label">Previous</span>
+            <span class="post-chain__title">{previous.title}</span>
+          </a>
+        )}
+        {next && (
+          <a class="post-chain__link post-chain__link--next" href={`/blog/${next.slug}`}>
+            <span class="post-chain__label">Next</span>
+            <span class="post-chain__title">{next.title}</span>
+          </a>
+        )}
+      </nav>
+    )}
+
+    <div class="container post-touch">
+      <h2 class="post-touch__title">Let’s keep in touch.</h2>
+      <p class="post-touch__text">Discover more about UI/UX design and product strategy. Follow us on LinkedIn and Instagram.</p>
+    </div>
+  </article>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .post-hero {
+    padding-top: calc(var(--header-height) + 90px);
+    padding-bottom: var(--space-9);
+    background: var(--color-bg-black);
+  }
+
+  .post-hero__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 900px;
+  }
+
+  .post-hero__date {
+    font-size: var(--fs-small);
+    color: var(--color-text-inverse-muted);
+  }
+
+  .post-hero__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text-inverse);
+  }
+
+  .post-hero__excerpt {
+    max-width: 40rem;
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body);
+    color: var(--color-text-inverse-secondary);
+  }
+
+  .post-hero__byline {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .post-hero__byline-name {
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-inverse);
+  }
+
+  .post-hero__byline-role {
+    font-size: var(--fs-caption);
+    color: var(--color-text-inverse-muted);
+  }
+
+  .post-image {
+    margin-top: var(--space-10);
+  }
+
+  .post-image img {
+    width: 100%;
+    aspect-ratio: 1520 / 900;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  .post-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 46rem;
+    margin-top: var(--space-11);
+    margin-bottom: var(--space-11);
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body);
+    color: var(--color-text-secondary);
+  }
+
+  .post-body h2 {
+    margin-top: var(--space-5);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text);
+  }
+
+  .post-body h3 {
+    margin-top: var(--space-2);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text);
+  }
+
+  .post-body ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-left: var(--space-6);
+    list-style: disc;
+  }
+
+  .post-body li {
+    color: var(--color-text-secondary);
+  }
+
+  /* --- Previous/Next --- */
+  .post-chain {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-bottom: var(--space-11);
+  }
+
+  .post-chain__link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-7);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-black);
+    border: 1px solid var(--color-border-inverse);
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .post-chain__link--next {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .post-chain__link:hover {
+    border-color: var(--color-border-inverse-strong);
+  }
+
+  .post-chain__label {
+    font-size: var(--fs-caption);
+    color: var(--color-text-inverse-muted);
+  }
+
+  .post-chain__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+  }
+
+  /* --- Let's keep in touch --- */
+  .post-touch {
+    padding-block: var(--space-9);
+    border-top: 1px solid var(--color-border-soft);
+  }
+
+  .post-touch__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+
+  .post-touch__text {
+    max-width: 30rem;
+    font-size: var(--fs-body);
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 809px) {
+    .post-hero {
+      padding-top: calc(var(--header-height) + 40px);
+    }
+
+    .post-chain {
+      grid-template-columns: 1fr;
+    }
+
+    .post-chain__link--next {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+</style>

@@ -1,0 +1,79 @@
+---
+/**
+ * SectionHeading — the site's eyebrow + display-heading pattern.
+ *
+ * [measured] Eyebrow: preset 1n1wh7h (Inter 500 14px, -0.04em, lh 140%).
+ * [measured] Title:   preset 1yvd34u (Inter 600 99px→62px, -0.06em, lh 92%).
+ *
+ * Props:
+ *  - eyebrow: small label above the title (e.g. "What we do", "Testimonials")
+ *  - title:   heading text
+ *  - as:      rendered element (h1/h2/…), default h2
+ *  - align:   "start" (default) | "center" | "end"
+ *  - class:   extra classes forwarded to the root
+ */
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  as?: "h1" | "h2" | "h3" | "h4" | "p";
+  align?: "start" | "center" | "end";
+  class?: string;
+}
+
+const props: Props = Astro.props;
+const {
+  eyebrow,
+  title,
+  as = "h2",
+  align = "start",
+  class: className = "",
+} = props;
+
+const Tag = as;
+const alignClass = align === "center" ? "is-center" : align === "end" ? "is-end" : "";
+const classes = `section-heading ${alignClass} ${className}`.trim();
+---
+
+<div class={classes}>
+  {eyebrow && <p class="section-heading__eyebrow">{eyebrow}</p>}
+  {title && <Tag class="section-heading__title">{title}</Tag>}
+  <slot name="after" />
+</div>
+
+<style>
+  .section-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .section-heading.is-center {
+    align-items: center;
+    text-align: center;
+  }
+
+  .section-heading.is-end {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .section-heading__eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-relaxed);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+  }
+
+  .section-heading__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tighter);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text);
+    text-wrap: balance;
+  }
+</style>

@@ -1,0 +1,96 @@
+---
+/**
+ * TestimonialCard — client quote card.
+ * [measured live] White card radius 18, avatar (46px, radius 7) + name (18px/600)
+ * + role at top; quote (26px/500/115%) in the bottom section.
+ */
+import type { Testimonial } from "../data/testimonials";
+
+interface Props {
+  testimonial: Testimonial;
+}
+
+const { testimonial } = Astro.props;
+---
+
+<figure class="testimonial">
+  <figcaption class="testimonial__top">
+    <img
+      class="testimonial__avatar"
+      src={testimonial.avatar}
+      alt={`Portrait of ${testimonial.name}`}
+      width="46"
+      height="46"
+      loading="lazy"
+      decoding="async"
+    />
+    <div class="testimonial__meta">
+      <span class="testimonial__name">{testimonial.name}</span>
+      <span class="testimonial__role">{testimonial.role}</span>
+    </div>
+  </figcaption>
+  <blockquote class="testimonial__quote">“{testimonial.quote}”</blockquote>
+</figure>
+
+<style>
+  .testimonial {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    padding: var(--space-6);
+    border-radius: 18px;
+    background: var(--color-accent);
+    border: 1px solid var(--color-border);
+  }
+
+  .testimonial__top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .testimonial__avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 7px;
+    object-fit: cover;
+  }
+
+  .testimonial__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /* [measured] 18px/600 */
+  .testimonial__name {
+    font-size: 18px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    line-height: 1.2;
+    color: var(--color-accent-ink);
+  }
+
+  .testimonial__role {
+    font-size: var(--fs-label);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  /* [measured] 26px/500/115% */
+  .testimonial__quote {
+    font-family: var(--font-body);
+    font-size: 26px;
+    font-weight: var(--fw-medium);
+    line-height: 1.15;
+    letter-spacing: var(--ls-display);
+    color: var(--color-accent-ink);
+    margin-top: auto;
+  }
+
+  @media (max-width: 809px) {
+    .testimonial__quote {
+      font-size: var(--fs-h5);
+    }
+  }
+</style>

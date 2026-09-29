@@ -1,0 +1,102 @@
+---
+/**
+ * Clients — social proof logo grid.
+ * [measured] Heading "Why UiEdge" (Inter 500 14px) + "©".
+ * Logos sit in WHITE rounded tiles (radius 14px) in a 6-column grid,
+ * gap 4px, section gap 70px. NOT an animated marquee on desktop.
+ */
+const CHIPS = [
+  "Kozhikode, India",
+  "9-step delivery process",
+  "Own SaaS products",
+  "Strategy-first",
+  "Client work + owned products",
+  "Fast turnaround",
+];
+---
+
+<section class="clients" aria-label="Why UiEdge">
+  <div class="container clients__inner">
+    <div class="clients__heading">
+      <span class="clients__title">Why UiEdge</span>
+      <span class="clients__period">©</span>
+    </div>
+
+    <ul class="clients__grid">
+      {CHIPS.map((chip) => (
+        <li class="clients__tile">
+          <span>{chip}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* [measured] section: column, centered, gap 70px */
+  .clients {
+    background: var(--color-bg);
+    padding-block: var(--space-11);
+  }
+
+  .clients__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 70px;
+  }
+
+  .clients__heading {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+
+  /* [measured] Inter 500 14px */
+  .clients__title {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+  }
+
+  .clients__period {
+    font-size: 13px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-muted);
+  }
+
+  /* [measured] 6-col grid, gap 4px */
+  .clients__grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(50px, 1fr));
+    gap: 4px;
+    width: 100%;
+  }
+
+  /* [measured] white tiles, radius 14px */
+  .clients__tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: var(--color-accent);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    min-height: 100px;
+  }
+
+  .clients__tile img {
+    max-width: 70%;
+    max-height: 40px;
+    object-fit: contain;
+  }
+
+  @media (max-width: 809px) {
+    .clients__grid {
+      grid-template-columns: repeat(3, minmax(50px, 1fr));
+    }
+  }
+</style>

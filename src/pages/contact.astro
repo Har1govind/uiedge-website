@@ -1,0 +1,289 @@
+---
+/**
+ * Contact — [verbatim] content + structure captured from
+ * the contact page. Distinct from the homepage's embedded
+ * CTASection: "Get in touch." heading, its own form (placeholders "Your
+ * name *"/"Email *"/"Your message", button "Submit"), team-lead card, its
+ * own social row, and two captioned photos ("The team /2024", "The office /2025").
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CTASection from "../components/CTASection.astro";
+import { SOCIALS } from "../data/site";
+
+const title = "Contact UiEdge — Book a Free Product Strategy Call";
+const description =
+  "Tell us about your website, app, or SaaS product. UiEdge is a Kozhikode-based product studio working across India and the Gulf. admin@uiedge.in.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="get-touch">
+    <div class="container get-touch__grid">
+      <div class="get-touch__intro">
+        <h1 class="get-touch__title">Let's build something worth betting on.</h1>
+        <p class="get-touch__lead">Tell us about your product — a website, an app, a SaaS tool, or an idea you want scoped.</p>
+
+        <div class="get-touch__lead-card">
+          <img
+            class="get-touch__lead-photo"
+            src="/images/team/lauren.jpg"
+            alt="Portrait of the founder at UiEdge"
+            width="56"
+            height="56"
+            loading="eager"
+            decoding="async"
+          />
+          <div>
+            <p class="get-touch__lead-name">⟨Founder name⟩</p>
+            <p class="get-touch__lead-role">Founder</p>
+          </div>
+        </div>
+
+        <div class="get-touch__social">
+          {SOCIALS.map((social) => (
+            <a href={social.url} target="_blank" rel="noopener noreferrer">{social.label}</a>
+          ))}
+        </div>
+      </div>
+
+      <form class="get-touch__form" data-contact-form novalidate>
+        <label class="sr-only" for="contact-name">Your name</label>
+        <input class="get-touch__input" id="contact-name" type="text" name="name" autocomplete="name" required placeholder="Your name *" />
+
+        <label class="sr-only" for="contact-email">Email</label>
+        <input class="get-touch__input" id="contact-email" type="email" name="email" autocomplete="email" required placeholder="Email *" />
+
+        <label class="sr-only" for="contact-message">Your message</label>
+        <textarea class="get-touch__input get-touch__input--area" id="contact-message" name="message" rows="5" placeholder="Your message"></textarea>
+
+        <button class="btn btn--accent get-touch__submit" type="submit">Submit</button>
+        <p class="get-touch__terms">
+          By submitting, you agree to our <a href="/legal/terms-of-service">Terms</a> and
+          <a href="/legal/privacy-policy">Privacy Policy</a>
+        </p>
+      </form>
+    </div>
+
+    <div class="container get-touch__gallery">
+      <figure class="get-touch__photo">
+        <img src="/images/contact/the-team.jpg" alt="The UiEdge team" width="1137" height="822" loading="lazy" decoding="async" />
+        <figcaption>
+          <span>The team</span>
+          <span class="get-touch__photo-year">/2024</span>
+        </figcaption>
+      </figure>
+      <figure class="get-touch__photo">
+        <img src="/images/contact/the-office.jpg" alt="The UiEdge office" width="1137" height="822" loading="lazy" decoding="async" />
+        <figcaption>
+          <span>The office</span>
+          <span class="get-touch__photo-year">/2025</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .get-touch {
+    padding-top: calc(var(--header-height) + 90px);
+    padding-bottom: var(--section-pad);
+  }
+
+  .get-touch__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    margin-bottom: var(--space-11);
+  }
+
+  .get-touch__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .get-touch__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tighter);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text);
+  }
+
+  .get-touch__lead {
+    max-width: 30rem;
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body);
+    color: var(--color-text-secondary);
+  }
+
+  .get-touch__lead-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .get-touch__lead-photo {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .get-touch__lead-name {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+  }
+
+  .get-touch__lead-role {
+    font-size: var(--fs-label);
+    color: var(--color-text-muted);
+  }
+
+  .get-touch__social {
+    display: flex;
+    gap: var(--space-6);
+    font-size: var(--fs-small);
+    color: var(--color-text-secondary);
+  }
+
+  .get-touch__social a:hover {
+    color: var(--color-accent);
+  }
+
+  .get-touch__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .get-touch__input {
+    width: 100%;
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: var(--fs-body);
+    transition:
+      border-color var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out);
+  }
+
+  .get-touch__input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .get-touch__input:focus-visible {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .get-touch__input--area {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  .get-touch__submit {
+    align-self: flex-start;
+    font-size: var(--fs-body);
+    padding: var(--space-3) var(--space-7);
+    margin-top: var(--space-2);
+  }
+
+  .get-touch__terms {
+    font-size: var(--fs-label);
+    color: var(--color-text-muted);
+  }
+
+  .get-touch__terms a {
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .get-touch__terms a:hover {
+    color: var(--color-accent);
+  }
+
+  /* --- Gallery --- */
+  .get-touch__gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  .get-touch__photo {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .get-touch__photo img {
+    width: 100%;
+    aspect-ratio: 1137 / 822;
+    object-fit: cover;
+  }
+
+  .get-touch__photo figcaption {
+    position: absolute;
+    left: var(--space-6);
+    bottom: var(--space-6);
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-inverse);
+  }
+
+  .get-touch__photo-year {
+    color: var(--color-text-inverse-muted);
+    opacity: 0.8;
+  }
+
+  @media (max-width: 1199px) {
+    .get-touch__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 809px) {
+    .get-touch {
+      padding-top: calc(var(--header-height) + 40px);
+    }
+
+    .get-touch__gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-contact-form]");
+  if (form) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const submit = form.querySelector<HTMLButtonElement>(".get-touch__submit");
+      if (submit) {
+        submit.textContent = "Sent ✓";
+        submit.disabled = true;
+      }
+      form.reset();
+    });
+  }
+</script>

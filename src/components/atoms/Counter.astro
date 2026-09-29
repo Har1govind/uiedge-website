@@ -1,0 +1,73 @@
+---
+/**
+ * Counter — count-up number on scroll into view.
+ * The live Framer site animates these stats from 0; we replicate
+ * lightly with vanilla JS + IntersectionObserver.
+ *
+ * NOTE: the script below targets ALL [data-counter] elements so it
+ * works correctly when multiple counters exist on one page.
+ */
+interface Props {
+  value: number;
+  suffix?: string;
+  prefix?: string;
+  duration?: number;
+}
+
+const { value, suffix = "", prefix = "", duration = 1200 } = Astro.props;
+const decimals = Number.isInteger(value) ? 0 : 1;
+---
+
+<span class="counter" data-counter data-value={value} data-decimals={decimals} data-duration={duration}>
+  {prefix}<span data-counter-value>0</span>{suffix}
+</span>
+
+<style>
+  .counter {
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+
+<script>
+  const format = (n: number, decimals: number) =>
+    n.toFixed(decimals).replace(/\.0$/, "");
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll<HTMLElement>("[data-counter]").forEach((el) => {
+    const valueEl = el.querySelector<HTMLElement>("[data-counter-value]");
+    if (!valueEl) return;
+
+    const target = Number(el.dataset.value ?? 0);
+    const decimals = Number(el.dataset.decimals ?? 0);
+    const duration = Number(el.dataset.duration ?? 1200);
+
+    const run = () => {
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        valueEl.textContent = format(target, decimals);
+        return;
+      }
+      const start = performance.now();
+      const tick = (now: number) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        valueEl.textContent = format(eased * target, decimals);
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            run();
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+  });
+</script>

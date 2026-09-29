@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UiEdge — Master Portfolio & Presentation Deck 2026</title>
+    <meta name="description" content="UiEdge presentation deck: strategy-first digital product studio, services, process, case studies, owned SaaS products, and pricing playbook." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+      :root {
+        --bg-dark: #0a0a0c;
+        --bg-card-dark: rgba(255, 255, 255, 0.04);
+        --bg-light: #f8f9fa;
+        --text-primary-dark: #ffffff;
+        --text-secondary-dark: rgba(255, 255, 255, 0.7);
+        --text-muted-dark: rgba(255, 255, 255, 0.45);
+        --text-primary-light: #0f172a;
+        --text-secondary-light: #475569;
+        --border-dark: rgba(255, 255, 255, 0.12);
+        --border-light: rgba(15, 23, 42, 0.1);
+        --accent: #6366f1;
+        --accent-glow: rgba(99, 102, 241, 0.25);
+        --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+        --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        background: #000;
+        color: var(--text-primary-dark);
+        font-family: var(--font-main);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .deck-container {
+        height: 100vh;
+        overflow-y: auto;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+      }
+
+      .slide-viewport {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        position: relative;
+        background: #050507;
+      }
+
+      .slide {
+        width: 1280px;
+        height: 720px;
+        background: var(--bg-dark);
+        color: var(--text-primary-dark);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 56px 64px;
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
+      }
+
+      .slide--light {
+        background: var(--bg-light);
+        color: var(--text-primary-light);
+      }
+
+      /* Slide Components */
+      .slide-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .eyebrow {
+        font-family: var(--font-heading);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .eyebrow::before {
+        content: '';
+        width: 12px;
+        height: 2px;
+        background: currentColor;
+      }
+
+      .slide-title {
+        font-family: var(--font-heading);
+        font-size: 38px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+        margin-top: 12px;
+      }
+
+      .slide-subtitle {
+        font-size: 17px;
+        color: var(--text-secondary-dark);
+        line-height: 1.5;
+        margin-top: 10px;
+        max-width: 720px;
+      }
+
+      .slide--light .slide-subtitle {
+        color: var(--text-secondary-light);
+      }
+
+      .footer-strip {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: var(--text-muted-dark);
+        border-top: 1px solid var(--border-dark);
+        padding-top: 16px;
+        margin-top: 24px;
+      }
+
+      .slide--light .footer-strip {
+        color: rgba(15, 23, 42, 0.45);
+        border-color: var(--border-light);
+      }
+
+      /* Cards & Layout Grid */
+      .grid { display: grid; gap: 20px; }
+      .grid-2 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+      .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+      .card {
+        background: var(--bg-card-dark);
+        border: 1px solid var(--border-dark);
+        border-radius: 16px;
+        padding: 24px;
+        backdrop-filter: blur(10px);
+      }
+
+      .slide--light .card {
+        background: #ffffff;
+        border-color: var(--border-light);
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 500;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid var(--border-dark);
+        color: var(--text-secondary-dark);
+      }
+
+      .slide--light .chip {
+        background: rgba(15, 23, 42, 0.05);
+        border-color: var(--border-light);
+        color: var(--text-secondary-light);
+      }
+
+      .badge-accent {
+        background: var(--accent);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 9999px;
+      }
+
+      /* Hero Slide Styling */
+      .slide--hero {
+        background: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                    #07070a;
+      }
+
+      .hero-title {
+        font-family: var(--font-heading);
+        font-size: 58px;
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.7) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Controls overlay */
+      .controls {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 100;
+        display: flex;
+        gap: 12px;
+      }
+
+      .btn-action {
+        background: rgba(15, 23, 42, 0.85);
+        color: #fff;
+        border: 1px solid rgba(255,255,255,0.2);
+        padding: 10px 18px;
+        border-radius: 9999px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        backdrop-filter: blur(8px);
+        transition: all 0.2s ease;
+      }
+
+      .btn-action:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="deck-container" id="deckContainer">
+
+      <!-- SLIDE 01: COVER -->
+      <div class="slide-viewport">
+        <div class="slide slide--hero" id="slide1">
+          <div class="slide-header">
+            <div style="font-family:var(--font-heading); font-size:22px; font-weight:700; letter-spacing:-0.02em; color:#fff;">
+              UiEdge <span style="font-size:12px; font-weight:400; color:var(--accent);">STUDIO</span>
+            </div>
+            <div class="chip">Portfolio & Strategy Deck · 2026</div>
+          </div>
+          <div style="margin: auto 0;">
+            <div class="eyebrow">01 / Positioning</div>
+            <h1 class="hero-title" style="margin-top: 16px; max-width: 900px;">
+              From Digitalization to Automation, We Build Around Your Vision.
+            </h1>
+            <p class="slide-subtitle" style="font-size:20px; margin-top:20px; max-width:760px;">
+              A strategy-first digital product studio based in Kozhikode & Kochi. We design and engineer websites, mobile applications, SaaS dashboards, and proprietary software products where design functions as business strategy.
+            </p>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>Software Development & Product Strategy</span>
+            <span>01 / 16</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 02: ABOUT UIEDGE -->
+      <div class="slide-viewport">
+        <div class="slide" id="slide2">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">02 / Identity</div>
+              <h2 class="slide-title">We are a Digital Product Studio — Not a Design Vendor.</h2>
+            </div>
+          </div>
+          <div class="grid grid-2" style="align-items: center; margin: auto 0;">
+            <div>
+              <p style="font-size: 16px; line-height: 1.7; color: var(--text-secondary-dark);">
+                UiEdge operates under a core philosophy: <strong>design is business strategy</strong>. Every product engagement starts from unit economics, user psychology, and technical scalability — targeting measurable outcomes in conversion rate, user retention, and operational velocity.
+              </p>
+              <p style="font-size: 16px; line-height: 1.7; color: var(--text-secondary-dark); margin-top: 16px;">
+                <strong>The Hybrid Advantage:</strong> Beyond client engagements, we actively build and operate our own proprietary software products — including a veterinary management platform and a retail POS system.
+              </p>
+              <div style="display: flex; gap: 12px; margin-top: 24px;">
+                <div class="card" style="flex:1; text-align:center; padding:16px;">
+                  <div style="font-size:28px; font-weight:700; color:#fff;">02</div>
+                  <div style="font-size:12px; color:var(--text-muted-dark); margin-top:4px;">Owned Products</div>
+                </div>
+                <div class="card" style="flex:1; text-align:center; padding:16px;">
+                  <div style="font-size:28px; font-weight:700; color:#fff;">09</div>
+                  <div style="font-size:12px; color:var(--text-muted-dark); margin-top:4px;">Step Process</div>
+                </div>
+                <div class="card" style="flex:1; text-align:center; padding:16px;">
+                  <div style="font-size:28px; font-weight:700; color:#fff;">100%</div>
+                  <div style="font-size:12px; color:var(--text-muted-dark); margin-top:4px;">Outcome-Focused</div>
+                </div>
+              </div>
+            </div>
+            <div style="border-radius: 16px; overflow: hidden; border: 1px solid var(--border-dark); height: 320px;">
+              <img src="/images/deck/cover-bg-gen.png" alt="UiEdge Studio Abstract" style="width: 100%; height: 100%; object-fit: cover;" />
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in · admin@uiedge.in</span>
+            <span>Classification: Software Development</span>
+            <span>02 / 16</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 03: SERVICES CATALOGUE -->
+      <div class="slide-viewport">
+        <div class="slide" id="slide3">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">03 / Capabilities</div>
+              <h2 class="slide-title">Full-Spectrum Product Services</h2>
+            </div>
+            <div class="chip">Proven Core Competencies</div>
+          </div>
+          <div class="grid grid-3" style="margin: auto 0;">
+            <div class="card">
+              <div style="font-weight:700; font-size:18px; color:#fff; margin-bottom:8px;">1. Product Strategy</div>
+              <p style="font-size:13px; color:var(--text-secondary-dark); line-height:1.5;">UX audits, market discovery, user research, product roadmapping, MVP scoping, conversion strategy.</p>
+            </div>
+            <div class="card">
+              <div style="font-weight:700; font-size:18px; color:#fff; margin-bottom:8px;">2. UX / UI Design</div>
+              <p style="font-size:13px; color:var(--text-secondary-dark); line-height:1.5;">Websites, mobile apps (iOS/Android), SaaS dashboards, enterprise CRM/ERP UI, design systems.</p>
+            </div>
+            <div class="card">
+              <div style="font-weight:700; font-size:18px; color:#fff; margin-bottom:8px;">3. Web Engineering</div>
+              <p style="font-size:13px; color:var(--text-secondary-dark); line-height:1.5;">Astro static sites, custom web apps, e-commerce, speed optimization, WCAG accessibility, SEO.</p>
+            </div>
+            <div class="card">
+              <div style="font-weight:700; font-size:18px; color:#fff; margin-bottom:8px;">4. Mobile Development</div>
+              <p style="font-size:13px; color:var(--text-secondary-dark); line-height:1.5;">Cross-platform Flutter/React Native, Progressive Web Apps, App Store optimization.</p>
+            </div>
+            <div class="card">
+              <div style="font-weight:700; font-size:18px; color:#fff; margin-bottom:8px;">5. Dev Handoff & Specs</div>
+              <p style="font-size:13px; color:var(--text-secondary-dark); line-height:1.5;">Component documentation, interactive Figma tokens, QA testing, frontend integration support.</p>
+            </div>
+            <div class="card">
+              <div style="font-weight:700; font-size:18px; color:#fff; margin-bottom:8px;">6. Proprietary SaaS</div>
+              <p style="font-size:13px; color:var(--text-secondary-dark); line-height:1.5;">Veterinary Management Platform & Multi-outlet POS system designed and engineered in-house.</p>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>Strategy · Design · Engineering</span>
+            <span>03 / 16</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 04: THE 9-STEP PROCESS -->
+      <div class="slide-viewport">
+        <div class="slide" id="slide4">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">04 / Delivery Methodology</div>
+              <h2 class="slide-title">Our 9-Step Strategic Delivery System</h2>
+            </div>
+          </div>
+          <div class="grid grid-3" style="margin: auto 0; gap: 14px;">
+            <div class="card" style="padding:16px;">
+              <div style="font-size:11px; color:var(--accent); font-weight:700;">STEP 01</div>
+              <div style="font-weight:700; font-size:15px; margin:4px 0;">Discovery</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">Align on business goals, target KPIs, and constraints before design.</p>
+            </div>
+            <div class="card" style="padding:16px;">
+              <div style="font-size:11px; color:var(--accent); font-weight:700;">STEP 02</div>
+              <div style="font-weight:700; font-size:15px; margin:4px 0;">Research</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">User interviews, competitor teardowns, and user journey mapping.</p>
+            </div>
+            <div class="card" style="padding:16px;">
+              <div style="font-size:11px; color:var(--accent); font-weight:700;">STEP 03</div>
+              <div style="font-weight:700; font-size:15px; margin:4px 0;">Strategy</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">Information architecture and conversion funnel structural planning.</p>
+            </div>
+            <div class="card" style="padding:16px;">
+              <div style="font-size:11px; color:var(--accent); font-weight:700;">STEP 04</div>
+              <div style="font-weight:700; font-size:15px; margin:4px 0;">Wireframing</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">Low-fidelity UX validation — solving layout early saves dev cost.</p>
+            </div>
+            <div class="card" style="padding:16px;">
+              <div style="font-size:11px; color:var(--accent); font-weight:700;">STEP 05</div>
+              <div style="font-weight:700; font-size:15px; margin:4px 0;">UI Design</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">High-fidelity, conversion-focused UI with pixel-perfect typography.</p>
+            </div>
+            <div class="card" style="padding:16px;">
+              <div style="font-size:11px; color:var(--accent); font-weight:700;">STEP 06</div>
+              <div style="font-weight:700; font-size:15px; margin:4px 0;">Prototype</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">Interactive Figma flows to simulate exact mobile & web feel.</p>
+            </div>
+            <div class="card" style="padding:16px;">
+              <div style="font-size:11px; color:var(--accent); font-weight:700;">STEP 07</div>
+              <div style="font-weight:700; font-size:15px; margin:4px 0;">Testing</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">Usability testing and accessibility WCAG compliance checks.</p>
+            </div>
+            <div class="card" style="padding:16px;">
+              <div style="font-size:11px; color:var(--accent); font-weight:700;">STEP 08</div>
+              <div style="font-weight:700; font-size:15px; margin:4px 0;">Dev Handoff</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">Design system tokens, clean assets, and frontend code handoff.</p>
+            </div>
+            <div class="card" style="padding:16px;">
+              <div style="font-size:11px; color:var(--accent); font-weight:700;">STEP 09</div>
+              <div style="font-weight:700; font-size:15px; margin:4px 0;">Optimization</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">Post-launch performance auditing and iterative conversion tuning.</p>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>De-Risking Digital Product Execution</span>
+            <span>04 / 16</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 05: PROPRIETARY PRODUCT - VET MANAGEMENT -->
+      <div class="slide-viewport">
+        <div class="slide" id="slide5">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">05 / Product Showcase</div>
+              <h2 class="slide-title">Veterinary Management Platform</h2>
+            </div>
+            <span class="badge-accent">Owned SaaS Product</span>
+          </div>
+          <div class="grid grid-2" style="align-items:center; margin:auto 0;">
+            <div>
+              <p style="font-size:16px; color:var(--text-secondary-dark); line-height:1.6;">
+                A comprehensive cloud platform for veterinary clinics and independent practitioners. Replaces legacy paper workflows with automated scheduling, patient medical history, billing, and automated client SMS follow-ups.
+              </p>
+              <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;">
+                <span class="chip">Appointment Scheduling</span>
+                <span class="chip">EHR & Medical History</span>
+                <span class="chip">Automated Invoicing</span>
+                <span class="chip">Vaccination Reminders</span>
+              </div>
+              <div style="margin-top:24px; padding:16px; background:rgba(99,102,241,0.1); border-left:3px solid var(--accent); border-radius:8px;">
+                <p style="font-size:14px; font-weight:600; color:#fff;">"We don't just design client apps — we engineer and operate complex software products."</p>
+              </div>
+            </div>
+            <div style="border-radius:16px; overflow:hidden; border:1px solid var(--border-dark); height:290px; box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+              <img src="/images/deck/vet-dashboard-gen.png" alt="Veterinary Platform UI" style="width:100%; height:100%; object-fit:cover;" />
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>SaaS Architecture & Product Operations</span>
+            <span>05 / 16</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 06: PROPRIETARY PRODUCT - POS SYSTEM -->
+      <div class="slide-viewport">
+        <div class="slide" id="slide6">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">06 / Product Showcase</div>
+              <h2 class="slide-title">Multi-Outlet Point of Sale (POS)</h2>
+            </div>
+            <span class="badge-accent">Owned SaaS Product</span>
+          </div>
+          <div class="grid grid-2" style="align-items:center; margin:auto 0;">
+            <div>
+              <p style="font-size:16px; color:var(--text-secondary-dark); line-height:1.6;">
+                Engineered for multi-branch retail stores, restaurants, and cafés. Provides real-time centralized inventory tracking, shift reporting, itemized billing, and multi-currency support across physical outlets.
+              </p>
+              <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;">
+                <span class="chip">Multi-Branch Sync</span>
+                <span class="chip">Real-time Stock Auditing</span>
+                <span class="chip">Shift & Cash Drawer Log</span>
+                <span class="chip">Analytics Dashboard</span>
+              </div>
+              <p style="font-size:14px; color:var(--text-muted-dark); margin-top:20px;">
+                Flexible per-outlet subscription model built for operational scaling without seat-licensing friction.
+              </p>
+            </div>
+            <div style="border-radius:16px; overflow:hidden; border:1px solid var(--border-dark); height:290px; box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+              <img src="/images/deck/pos-counter-gen.png" alt="POS System UI" style="width:100%; height:100%; object-fit:cover;" />
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>Retail Tech & Real-Time Dashboards</span>
+            <span>06 / 16</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 07: PRICING PLAYBOOK -->
+      <div class="slide-viewport">
+        <div class="slide" id="slide7">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">07 / Engagement Tiers</div>
+              <h2 class="slide-title">Transparent Project Pricing</h2>
+            </div>
+            <div class="chip">Value & Scope Based</div>
+          </div>
+          <div class="grid grid-4" style="margin:auto 0;">
+            <div class="card" style="text-align:center;">
+              <div style="font-size:14px; color:var(--text-muted-dark);">Business Site</div>
+              <div style="font-size:26px; font-weight:700; color:#fff; margin:10px 0;">₹60K - ₹1.1L</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">5-7 pages, custom design, responsive CMS, SEO ready.</p>
+            </div>
+            <div class="card" style="text-align:center; border-color:var(--accent); background:rgba(99,102,241,0.08);">
+              <span class="badge-accent" style="margin-bottom:6px; display:inline-block;">Popular</span>
+              <div style="font-size:14px; color:var(--text-muted-dark);">App UI/UX MVP</div>
+              <div style="font-size:26px; font-weight:700; color:#fff; margin:10px 0;">₹90K - ₹2.5L</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">User flows, wireframes, full UI kit, interactive prototype.</p>
+            </div>
+            <div class="card" style="text-align:center;">
+              <div style="font-size:14px; color:var(--text-muted-dark);">SaaS Dashboard</div>
+              <div style="font-size:26px; font-weight:700; color:#fff; margin:10px 0;">₹1.5L - ₹4.0L</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">Complex admin UI, data visualization, design system.</p>
+            </div>
+            <div class="card" style="text-align:center;">
+              <div style="font-size:14px; color:var(--text-muted-dark);">Care Retainer</div>
+              <div style="font-size:26px; font-weight:700; color:#fff; margin:10px 0;">₹8K - ₹25K/mo</div>
+              <p style="font-size:12px; color:var(--text-secondary-dark);">Continuous updates, speed checks, priority design hours.</p>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>40-50% advance · Milestone based delivery</span>
+            <span>uiedge.in · Contact admin@uiedge.in</span>
+            <span>07 / 16</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 08: CONTACT CTA -->
+      <div class="slide-viewport">
+        <div class="slide slide--hero" id="slide8">
+          <div class="slide-header">
+            <div style="font-family:var(--font-heading); font-size:22px; font-weight:700; color:#fff;">UiEdge</div>
+            <div class="chip">Kozhikode / Kochi, Kerala</div>
+          </div>
+          <div style="margin: auto 0; text-align:center;">
+            <div class="eyebrow" style="justify-content:center;">16 / Let's Build</div>
+            <h1 class="hero-title" style="font-size:52px; margin-top:16px;">
+              Let's build something worth betting on.
+            </h1>
+            <p style="font-size:18px; color:var(--text-secondary-dark); margin-top:20px; max-width:600px; margin-left:auto; margin-right:auto;">
+              Ready to elevate your digital product with strategy-first design and engineering? Schedule a 30-minute discovery call.
+            </p>
+            <div style="display:flex; justify-content:center; gap:16px; margin-top:32px;">
+              <a href="mailto:admin@uiedge.in" class="btn-action" style="background:var(--accent); text-decoration:none;">Book a Strategy Call</a>
+              <button class="btn-action" onclick="window.print()">Print / Export PDF</button>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>admin@uiedge.in · uiedge.in</span>
+            <span>linkedin.com/company/uiedge</span>
+            <span>16 / 16</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- On-screen Navigation Controls -->
+    <div class="controls">
+      <button class="btn-action" onclick="scrollToPrev()">↑ Prev Slide</button>
+      <button class="btn-action" onclick="scrollToNext()">↓ Next Slide</button>
+      <a href="/portfolio" target="_blank" class="btn-action" style="text-decoration:none;">Open Live Deck</a>
+    </div>
+
+    <script>
+      const container = document.getElementById('deckContainer');
+      function scrollToNext() {
+        container.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+      }
+      function scrollToPrev() {
+        container.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+      }
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') { scrollToNext(); }
+        if (e.key === 'ArrowUp' || e.key === 'PageUp') { scrollToPrev(); }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+=== hero (y=0 h=1017) ===
+fabrica | Studio | ® | Just tools and strategies that help your business grow and your brand shine. | © 2025 fabrica® Studio | at fabrica® | Lauren Thompson | Let’s talk
+
+=== clients (y=1017 h=348) ===
+Our clients | (2016-25©)
+
+=== section.container (y=1365 h=2239) ===
+Projects. | We’ve helped businesses across industries achieve their goals. Here are some of our recent projects. | Boltshift. | / | 2025 | Ephemeral. | Powersurge. | 2024 | Mastermail. | Warpspeed. | 2023 | CloudWatch. | 2020
+
+=== why (y=3604 h=849) ===
+Why choose us | Proven results for every project, with a focus on design and functionality. | Your digital journey begins with a conversation. Let’s talk today. | Let's talk | No fluff, just results. | Thoughtful design and tools that make your work easier. We focus on smart design and useful features, project after project. | 0 | Successful projects completed
+
+=== section.container (y=4453 h=1681) ===
+Services. | (001) | Web design and development | Modern, responsive, and user-friendly websites designed to engage visitors and drive conversions. | Categories | 6+ | (002) | Social media marketing | Strategic, data-driven social media campaigns designed to build brand awareness and connect with your target audience. | (003) | SEO and content marketing | Comprehensive search optimization and engaging content that increases visibility, drives organic traffic, and establishes thought leadership. | 4+ | (004) | Branding and identity | Distinctive, memorable brand experiences that communicate your values and create emotional connections with your customers.
+
+=== section.about (y=6134 h=736) ===
+About us | See how our team combines creativity, technology, and strategy to build powerful digital solutions. | 01 | The team that communicates every step | 02 | Customized solutions for your unique needs | 03 | Transparent pricing with no hidden fees | 04 | Proven track record with measurable results
+
+=== section.testimonials (y=6870 h=892) ===
+Testimonials | Experiences. | 0 | /5 | James Carter | Wilson & Co | Emily Davis | StartUp Hub | Anna Martinez | Marketing Director
+
+=== section.band (y=7762 h=556) ===
+0 | Ad impressions managed | Successful projects launched | Client satisfaction rate | Monthly visitors driven through SEO
+
+=== section.approach (y=8318 h=630) ===
+Every project we take on is designed for long-term success. | Our approach is simple: we focus on functionality, speed, and clarity, ensuring that every project serves a clear purpose without unnecessary complexity. | We don’t overpromise or use flashy marketing language. We simply build well-designed, functional websites and strategies that help businesses succeed.
+
+=== case (y=8948 h=1085) ===
+Case study | UX/UI Redesign, Frontend Optimization. | Live website → | From branding to web development and marketing — We do it all. | Performance Boost: | Page speed +48%, Bounce rate -23% | Conversion Rate Improvement: | 4.2% → 5.9% | 0 | Pagespeed score | We prioritize performance without sacrificing visual appeal or functionality. | Quarterly visits | +30% | Dec | Jan | Feb | Mar | Apr
+
+=== section.container (y=10033 h=1128) ===
+Simple pricing | Pricing. | +$1,490 | $2,490 | /project | Get in touch
+
+=== section.team (y=11161 h=1447) ===
+The faces behind the projects. | Be part of our mission | If you’re ready to create and collaborate, we’d love to hear from you. | Apply now | We believe great work comes from collaboration. That’s why we work closely with each other to ensure every project meets your goals and exceeds expectations. | Team Lead at fabrica® | Lauren Thompson | Blends aesthetics with functionality to create designs that not only look great but drive results. | Full Stack Developer at fabrica® | Michael Wilson | Transforms ideas into seamless, high-performing websites with clean code and attention to detail. | Creative Director at fabrica® | Sarah Johnson | Crafts compelling narratives that connect with audiences and strengthen brand identity. | UX/UI Designer at fabrica® | Christopher Miller | Keeps everything on track, ensuring smooth collaboration and timely delivery.
+
+=== faq (y=12608 h=1082) ===
+FAQ. | Got questions? We’ve got answers. Here’s everything you need to know about working with us. | How long does it take to build a website? | The timeline for building a website depends on its complexity and specific requirements. On average, we’ll provide a detailed timeline during the initial consultation to ensure clear expectations. | Do you offer custom websites or use templates? | We create fully custom websites tailored to your brand. No generic templates—just unique, high-performing designs. | What’s included in your SEO services? | We optimize your site structure, content, and speed, ensuring better search rankings and visibility. | How does the monthly subscription model work? | You pay a fixed monthly fee, and we handle everything—design, updates, and ongoing support. No large upfront costs, just a seamless experience. | Can you redesign my existing website? | Yes! We can refresh your current site while improving its design, functionality, and performance. | How do I get started? | Just reach out! We’ll discuss your needs, create a plan, and get to work on your website.
+
+=== section.blog (y=13690 h=1685) ===
+Stay informed about our latest projects, trends, and industry insights. | See all → | How a well-designed website can transform your business | Discover the latest design trends shaping the digital world and how they impact business. | → | The Psychology of Color in Branding | Colors influence emotions and decisions. Here’s how to use them strategically in branding.
+
+=== section.news (y=15375 h=868) ===
+fabrica® | What’s new in digital?
+
+=== cta (y=16243 h=1042) ===
+Have a project in mind? | Let’s talk. Tell us about your project — whether it’s a website, SEO, or marketing. | Quick response. | If you’re ready to create and collaborate, we’d love to hear from you. | Clear next steps. | After the consultation, we’ll provide you with a detailed plan and timeline. | Lauren Thompson | Ask directly → | Your name* | E-mail* | Message | Terms | Privacy Policy | Newsletter

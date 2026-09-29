@@ -1,0 +1,438 @@
+---
+/**
+ * Hero — homepage hero.
+ * [measured live 1440] Dark #0a0a0a. Absolute BG card (inset 6px, radius 25px)
+ * with grayscale video (opacity 0.7) + noise overlay. Content column:
+ *   Top: Company (wordmark "UiEdge" fit to ~755px, ® 116x191 next to it,
+ *   "Studio" 51px below-right) + Services pills (4 x 18px/600 right column).
+ *   Icons: row of 4 plus marks (16px).
+ *   Bottom: H1 (22px/500, second sentence muted) + copyright (14px) +
+ *   horizontal CTA card (image 125px + text 211px, radius 16px).
+ * Clients marquee strip overlaps the hero bottom (scale .95, pulled up).
+ */
+import FitText from "./atoms/FitText.astro";
+
+const KEYWORDS = [
+  "UI/UX Design",
+  "Product Strategy",
+  "Web & App Design",
+  "SaaS & Enterprise",
+  "Owned Software Products",
+];
+
+---
+
+<section class="hero">
+  <!-- BG video card -->
+  <div class="hero__bg" aria-hidden="true">
+    <video
+      class="hero__bg-video"
+      src="/videos/hero-bg.webm"
+      poster="/images/showreel-poster.jpg"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    ></video>
+    <div class="hero__bg-noise"></div>
+  </div>
+
+  <div class="hero__first">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <div class="hero__top">
+          <div class="hero__company">
+            <div class="hero__title">
+              <div class="hero__wordmark">
+                <FitText aria-label="UiEdge" maxScale={1}>
+                  <span class="hero__wordmark-text">UiEdge</span>
+                </FitText>
+              </div>
+            </div>
+          </div>
+
+          <ul class="hero__services" aria-label="Services">
+            {KEYWORDS.map((keyword) => (
+              <li class="hero__pill">{keyword}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="hero__icons" aria-hidden="true">
+          {Array.from({ length: 4 }).map(() => <span class="hero__plus"></span>)}
+        </div>
+
+        <div class="hero__bottom">
+          <div class="hero__text">
+            <h1 class="hero__headline">
+              Strategy-first UI/UX design and digital product studio.
+              <span class="hero__headline-muted">
+                We design and build websites, apps, and SaaS products where design is business strategy — measured in conversions, adoption, and growth.
+              </span>
+            </h1>
+            <p class="hero__copyright">© 2026 UiEdge Studio</p>
+          </div>
+
+          <a class="hero__card" href="/contact">
+            <div class="hero__card-media">
+              <img
+                src="/images/team/lauren.jpg"
+                alt="Portrait of the founder at UiEdge"
+                width="170"
+                height="216"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+            <div class="hero__card-body">
+              <p class="hero__card-role">Founder <span class="hero__card-company">at UiEdge</span></p>
+              <p class="hero__card-name">⟨Founder name⟩</p>
+              <span class="hero__card-cta">Book a strategy call</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+
+  /* BG video card — absolute, inset 6px (below header), radius 25px */
+  .hero__bg {
+    position: absolute;
+    top: var(--header-height);
+    right: 6px;
+    bottom: 6px;
+    left: 6px;
+    z-index: 0;
+    border-radius: 25px;
+    overflow: hidden;
+    background: var(--color-bg-black);
+  }
+
+  .hero__bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    filter: grayscale(1);
+    opacity: 0.7;
+    background: var(--color-bg-black);
+  }
+
+  .hero__bg-noise {
+    position: absolute;
+    inset: -200%;
+    width: 400%;
+    height: 400%;
+    background: url("/images/clients-pattern.png");
+    opacity: 0.05;
+  }
+
+  /* First screen — capped to the viewport height */
+  .hero__first {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    height: 100vh;
+    max-height: 100vh;
+  }
+
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: var(--header-height);
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 85px;
+    padding-block: 90px 0;
+    flex: 1;
+    width: 100%;
+  }
+
+  /* Top: Company + Services */
+  .hero__top {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 0;
+    width: 100%;
+  }
+
+  .hero__company {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    padding-right: 40px;
+  }
+
+  .hero__title {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    width: 100%;
+  }
+
+  .hero__wordmark {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .hero__wordmark-text {
+    font-family: var(--font-display);
+    font-size: 201px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tightest);
+    line-height: 0.83;
+    color: var(--color-text-inverse);
+    white-space: nowrap;
+  }
+
+  /* Service pills — 18px/600, right column */
+  .hero__services {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    width: 25%;
+    align-self: center;
+  }
+
+  .hero__pill {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    line-height: 1.2;
+    color: var(--color-text-inverse);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* Icons row — 4 plus marks */
+  .hero__icons {
+    display: flex;
+    width: 100%;
+  }
+
+  .hero__plus {
+    position: relative;
+    flex: 1;
+    height: 16px;
+  }
+
+  .hero__plus::before,
+  .hero__plus::after {
+    content: "";
+    position: absolute;
+    background: var(--color-text-inverse);
+  }
+
+  .hero__plus::before {
+    left: 0;
+    top: 7px;
+    width: 16px;
+    height: 2px;
+  }
+
+  .hero__plus::after {
+    left: 7px;
+    top: 0;
+    width: 2px;
+    height: 16px;
+  }
+
+  /* Bottom: headline + copyright + CTA card */
+  .hero__bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0;
+    width: 100%;
+  }
+
+  .hero__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    width: 75%;
+    padding-right: 110px;
+  }
+
+  .hero__headline {
+    font-family: var(--font-body);
+    font-size: 22px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    line-height: 1.2;
+    color: var(--color-text-inverse);
+    max-width: 490px;
+  }
+
+  .hero__headline-muted {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .hero__copyright {
+    font-size: 14px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+    align-self: flex-end;
+    margin-top: auto;
+  }
+
+  /* CTA card — horizontal: image (125px) + text (211px) */
+  .hero__card {
+    display: flex;
+    gap: 0;
+    width: 336px;
+    flex-shrink: 0;
+    background: var(--color-accent);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .hero__card-media {
+    width: 125px;
+    padding: 6px;
+    flex-shrink: 0;
+  }
+
+  .hero__card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .hero__card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .hero__card-role {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    line-height: 1;
+    color: var(--color-accent-ink);
+  }
+
+  .hero__card-company {
+    font-size: 12px;
+    line-height: 1.1;
+    opacity: 0.6;
+  }
+
+  .hero__card-name {
+    font-family: var(--font-body);
+    font-size: 22px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    line-height: 1.15;
+    color: var(--color-accent-ink);
+  }
+
+  .hero__card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 9px 12px 9px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent-ink);
+    font-family: var(--font-body);
+    font-size: var(--fs-label);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    line-height: 1;
+    color: var(--color-accent);
+    margin-top: auto;
+  }
+
+  /* Tablet */
+  @media (max-width: 1199px) {
+    .hero__content {
+      gap: 50px;
+      padding-block: 110px 30px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 809px) {
+    .hero__content {
+      gap: 40px;
+      padding-block: 70px 20px;
+      justify-content: flex-start;
+    }
+
+    .hero__top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+    }
+
+    .hero__company {
+      width: 100%;
+      padding-right: 0;
+    }
+
+    .hero__wordmark-text {
+      font-size: 120px;
+    }
+
+    .hero__services {
+      width: 100%;
+      align-items: flex-start;
+    }
+
+    .hero__pill {
+      text-align: left;
+      font-size: 15px;
+    }
+
+    .hero__bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+    }
+
+    .hero__text {
+      width: 100%;
+      padding-right: 0;
+    }
+
+    .hero__headline {
+      font-size: 19px;
+      max-width: none;
+    }
+
+    .hero__card {
+      width: 100%;
+      max-width: 336px;
+    }
+  }
+</style>

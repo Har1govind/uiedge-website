@@ -1,0 +1,1099 @@
+/* ============================================================
+   UiEdge Portfolio Deck — slide system + print rules.
+   Tokens mirror src/styles/global.css (the live site's real values:
+   Inter for display/body, Geist Sans for labels/eyebrows/numerals).
+   ============================================================ */
+
+:root {
+  --d-bg: #f5f5f5;
+  --d-bg-black: #0a0a0a;
+  --d-surface: #ffffff;
+
+  --d-text: #0a0a0a;
+  --d-text-secondary: rgba(10, 10, 10, 0.7);
+  --d-text-muted: rgba(10, 10, 10, 0.55);
+
+  --d-inverse: #ffffff;
+  --d-inverse-secondary: rgba(255, 255, 255, 0.7);
+  --d-inverse-muted: rgba(255, 255, 255, 0.55);
+
+  --d-border: rgba(10, 10, 10, 0.1);
+  --d-border-strong: rgba(10, 10, 10, 0.18);
+  --d-border-inverse: rgba(255, 255, 255, 0.14);
+  --d-border-inverse-strong: rgba(255, 255, 255, 0.24);
+
+  --d-accent: #ffffff;
+  --d-accent-ink: #0a0a0a;
+
+  --d-font-display: "Inter", system-ui, -apple-system, sans-serif;
+  --d-font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --d-font-label: "Geist Sans", "Inter", system-ui, sans-serif;
+
+  --d-radius-sm: 12px;
+  --d-radius-md: 16px;
+  --d-radius-lg: 25px;
+  --d-radius-pill: 50px;
+
+  --d-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--d-bg-black);
+  color: var(--d-text);
+  font-family: var(--d-font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------
+   Deck shell + scroll-snap track
+   ------------------------------------------------------------ */
+.deck {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.slide-viewport {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+}
+
+/* Fixed 1280x720 canvas — never reflows. JS applies transform:scale()
+   on small viewports; layout box stays 1280x720 always. */
+.slide {
+  width: 1280px;
+  height: 720px;
+  flex: 0 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: var(--d-bg);
+  color: var(--d-text);
+  transform-origin: center center;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide--dark {
+  background: var(--d-bg-black);
+  color: var(--d-inverse);
+}
+
+.slide-inner {
+  flex: 1 1 auto;
+  padding: 80px 80px 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* ------------------------------------------------------------
+   Skeleton: eyebrow / headline / footer strip
+   ------------------------------------------------------------ */
+.eyebrow {
+  font-family: var(--d-font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--d-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slide--dark .eyebrow {
+  color: var(--d-inverse-muted);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.headline {
+  font-family: var(--d-font-display);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin: 18px 0 0;
+  text-wrap: balance;
+}
+
+.headline--xl {
+  font-size: 58px;
+}
+
+.headline--lg {
+  font-size: 42px;
+}
+
+.headline--md {
+  font-size: 32px;
+}
+
+.subline {
+  font-family: var(--d-font-body);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--d-text-secondary);
+  max-width: 640px;
+  margin-top: 16px;
+}
+
+.slide--dark .subline {
+  color: var(--d-inverse-secondary);
+}
+
+.body-copy {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--d-text-secondary);
+  max-width: 620px;
+}
+
+.slide--dark .body-copy {
+  color: var(--d-inverse-secondary);
+}
+
+.body-copy + .body-copy {
+  margin-top: 14px;
+}
+
+.footer-strip {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 80px 80px;
+  font-family: var(--d-font-label);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--d-text-muted);
+}
+
+.slide--dark .footer-strip {
+  color: var(--d-inverse-muted);
+}
+
+.footer-strip__num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------
+   Reusable pieces
+   ------------------------------------------------------------ */
+.logo-mark {
+  height: 22px;
+  width: auto;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: var(--d-radius-pill);
+  border: 1px solid var(--d-border);
+  font-family: var(--d-font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--d-text-secondary);
+  background: var(--d-surface);
+}
+
+.slide--dark .chip {
+  border-color: var(--d-border-inverse);
+  color: var(--d-inverse-secondary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.chip strong {
+  color: var(--d-text);
+  font-weight: 600;
+}
+
+.slide--dark .chip strong {
+  color: var(--d-inverse);
+}
+
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--d-radius-pill);
+  font-family: var(--d-font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s var(--d-ease), background 0.15s var(--d-ease), box-shadow 0.15s var(--d-ease);
+}
+
+.pill-btn--accent {
+  background: var(--d-accent-ink);
+  color: var(--d-accent);
+}
+
+.slide--dark .pill-btn--accent,
+.slide--cover .pill-btn--accent {
+  background: var(--d-accent);
+  color: var(--d-accent-ink);
+}
+
+.pill-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.pill-btn:active {
+  transform: scale(0.97);
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ------------------------------------------------------------
+   Grids used across slides
+   ------------------------------------------------------------ */
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.card {
+  background: var(--d-surface);
+  border: 1px solid var(--d-border);
+  border-radius: var(--d-radius-md);
+  padding: 24px;
+  transition: transform 0.2s var(--d-ease), box-shadow 0.2s var(--d-ease);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(10, 10, 10, 0.08);
+}
+
+.slide--dark .card {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--d-border-inverse);
+}
+
+.card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--d-bg-black);
+  color: var(--d-inverse);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.slide--dark .card__icon {
+  background: var(--d-inverse);
+  color: var(--d-accent-ink);
+}
+
+.card__title {
+  font-family: var(--d-font-display);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.card__desc {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--d-text-muted);
+}
+
+.slide--dark .card__desc {
+  color: var(--d-inverse-muted);
+}
+
+/* ------------------------------------------------------------
+   Cover slide
+   ------------------------------------------------------------ */
+.slide--cover {
+  background: var(--d-bg-black);
+  color: var(--d-inverse);
+  position: relative;
+  overflow: hidden;
+}
+
+.slide--cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/deck/cover-bg.jpg");
+  background-size: cover;
+  background-position: center 30%;
+  opacity: 0.28;
+}
+
+.slide--cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.62) 0%, rgba(10, 10, 10, 0.86) 60%, #0a0a0a 100%);
+}
+
+.slide--cover .eyebrow {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.slide--cover .footer-strip {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.slide--cover .slide-inner,
+.slide--cover .footer-strip {
+  position: relative;
+  z-index: 1;
+}
+
+.slide--cover .slide-inner {
+  justify-content: space-between;
+}
+
+.cover-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cover-date {
+  font-family: var(--d-font-label);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--d-inverse-muted);
+  text-transform: uppercase;
+}
+
+.cover-headline {
+  font-family: var(--d-font-display);
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  max-width: 980px;
+}
+
+.cover-sub {
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--d-inverse-secondary);
+  max-width: 560px;
+  margin-top: 24px;
+}
+
+/* ------------------------------------------------------------
+   Mockups drawn entirely in CSS/HTML — no screenshots
+   ------------------------------------------------------------ */
+.browser-frame {
+  border-radius: var(--d-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--d-border);
+  background: var(--d-surface);
+  box-shadow: 0 24px 48px rgba(10, 10, 10, 0.12);
+}
+
+.browser-frame__bar {
+  height: 30px;
+  background: #ececec;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--d-border);
+}
+
+.browser-frame__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d4d4d4;
+}
+
+.browser-frame__screen {
+  padding: 22px 24px;
+  background: linear-gradient(180deg, #fafafa 0%, #f2f2f2 100%);
+}
+
+.mock-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.mock-logo {
+  width: 64px;
+  height: 8px;
+  border-radius: 4px;
+  background: #0a0a0a;
+}
+
+.mock-nav-links {
+  display: flex;
+  gap: 10px;
+}
+
+.mock-nav-links span {
+  width: 34px;
+  height: 6px;
+  border-radius: 3px;
+  background: #d8d8d8;
+}
+
+.mock-hero {
+  height: 84px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0a0a0a 0%, #2b2b2b 100%);
+  margin-bottom: 14px;
+}
+
+.mock-row {
+  display: flex;
+  gap: 10px;
+}
+
+.mock-block {
+  flex: 1;
+  height: 46px;
+  border-radius: 8px;
+  background: #e4e4e4;
+}
+
+.phone-frame {
+  width: 128px;
+  height: 260px;
+  border-radius: 22px;
+  border: 6px solid #0a0a0a;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(10, 10, 10, 0.16);
+}
+
+.phone-frame__screen {
+  height: 100%;
+  padding: 14px 10px;
+  background: linear-gradient(180deg, #fafafa 0%, #efefef 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.phone-frame__bar {
+  height: 18px;
+  border-radius: 6px;
+  background: #0a0a0a;
+}
+
+.phone-frame__line {
+  height: 8px;
+  border-radius: 4px;
+  background: #dcdcdc;
+}
+
+.phone-frame__line--short {
+  width: 60%;
+}
+
+.phone-frame__card {
+  flex: 1;
+  border-radius: 8px;
+  background: #e6e6e6;
+  margin-top: 4px;
+}
+
+.laptop-frame {
+  border-radius: 14px 14px 0 0;
+  border: 1px solid var(--d-border);
+  background: #1c1c1c;
+  padding: 10px 10px 0;
+  box-shadow: 0 24px 48px rgba(10, 10, 10, 0.16);
+}
+
+.laptop-frame__screen {
+  border-radius: 6px;
+  overflow: hidden;
+  background: #101010;
+}
+
+.laptop-frame__base {
+  height: 12px;
+  background: #1c1c1c;
+  border-radius: 0 0 4px 4px;
+  margin-top: 8px;
+  position: relative;
+}
+
+.laptop-frame__base::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 12px;
+  background: #262626;
+  border-radius: 0 0 6px 6px;
+}
+
+.dash-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dash-topbar span {
+  width: 50px;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dash-body {
+  display: flex;
+}
+
+.dash-sidebar {
+  width: 22%;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dash-sidebar span {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.dash-sidebar span:first-child {
+  width: 70%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.dash-main {
+  flex: 1;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  align-content: start;
+}
+
+.dash-card {
+  height: 44px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dash-card--wide {
+  grid-column: span 3;
+  height: 64px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+}
+
+.content-photo {
+  border-radius: var(--d-radius-md);
+  overflow: hidden;
+  display: block;
+}
+
+.content-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Photo-backed dark slides (reach, social proof) — same treatment as cover */
+.slide--photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.slide--photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.32;
+}
+
+.slide--photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.9) 100%);
+}
+
+.slide--photo .slide-inner,
+.slide--photo .footer-strip {
+  position: relative;
+  z-index: 1;
+}
+
+.slide--reach::before {
+  background-image: url("/images/deck/globe-network.jpg");
+}
+
+.slide--social::before {
+  background-image: url("/images/deck/collab-handshake.jpg");
+  opacity: 0.16;
+}
+
+.slide--social::after {
+  background: linear-gradient(180deg, rgba(245, 245, 245, 0) 0%, rgba(245, 245, 245, 0.55) 100%), #f5f5f5;
+}
+
+.stat-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-block__num {
+  font-family: var(--d-font-display);
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+}
+
+.stat-block__label {
+  font-family: var(--d-font-label);
+  font-size: 11.5px;
+  color: var(--d-text-muted);
+  letter-spacing: 0.01em;
+}
+
+.slide--dark .stat-block__label {
+  color: var(--d-inverse-muted);
+}
+
+.included-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--d-text-secondary);
+}
+
+.included-row svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--d-text);
+  stroke-width: 2;
+  fill: none;
+  flex: 0 0 auto;
+}
+
+/* Annotation callouts */
+.callout {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--d-radius-pill);
+  background: var(--d-accent-ink);
+  color: var(--d-accent);
+  font-family: var(--d-font-label);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.callout::before {
+  content: "↳";
+}
+
+/* ------------------------------------------------------------
+   Process flow (slide 4)
+   ------------------------------------------------------------ */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.process-step {
+  border: 1px solid var(--d-border-inverse);
+  border-radius: var(--d-radius-md);
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.process-step__num {
+  font-family: var(--d-font-label);
+  font-size: 12px;
+  color: var(--d-inverse-muted);
+}
+
+.process-step__title {
+  font-family: var(--d-font-display);
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+.process-step__desc {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--d-inverse-muted);
+  margin-top: 6px;
+}
+
+/* ------------------------------------------------------------
+   Pricing table (slide 14)
+   ------------------------------------------------------------ */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.price-card {
+  border: 1px solid var(--d-border);
+  border-radius: var(--d-radius-md);
+  padding: 18px 16px;
+  background: var(--d-surface);
+}
+
+.price-card--featured {
+  background: var(--d-bg-black);
+  color: var(--d-inverse);
+  border-color: var(--d-bg-black);
+  transform: translateY(-8px);
+}
+
+.price-card__badge {
+  font-family: var(--d-font-label);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--d-inverse-muted);
+  margin-bottom: 8px;
+}
+
+.price-card__title {
+  font-family: var(--d-font-display);
+  font-weight: 600;
+  font-size: 13.5px;
+  letter-spacing: -0.01em;
+}
+
+.price-card__price {
+  font-family: var(--d-font-label);
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.price-card__from {
+  font-size: 10px;
+  color: var(--d-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.price-card--featured .price-card__from {
+  color: var(--d-inverse-muted);
+}
+
+/* ------------------------------------------------------------
+   Nav controls + download button (screen only)
+   ------------------------------------------------------------ */
+.deck-controls {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.deck-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.deck-nav__btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.85);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: transform 0.15s var(--d-ease), background 0.15s var(--d-ease);
+}
+
+.deck-nav__btn:hover {
+  transform: translateY(-2px);
+  background: #0a0a0a;
+}
+
+.deck-nav__btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2;
+}
+
+.deck-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  border-radius: var(--d-radius-pill);
+  background: #fff;
+  color: #0a0a0a;
+  font-family: var(--d-font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  transition: transform 0.15s var(--d-ease), background 0.15s var(--d-ease);
+}
+
+.deck-download:hover {
+  transform: translateY(-2px);
+  background: #f2f2f2;
+}
+
+.deck-download:disabled {
+  opacity: 0.7;
+  cursor: progress;
+  transform: none;
+}
+
+.deck-download svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.deck-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #fff;
+  z-index: 60;
+  transition: width 0.2s var(--d-ease);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+.deck-counter {
+  position: fixed;
+  left: 28px;
+  bottom: 28px;
+  z-index: 50;
+  font-family: var(--d-font-label);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(10, 10, 10, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 8px 14px;
+  border-radius: var(--d-radius-pill);
+  backdrop-filter: blur(6px);
+}
+
+/* ------------------------------------------------------------
+   Entrance animation — plays once on load for the cover only.
+   Never tied to scroll/IntersectionObserver, so nothing needs
+   to be "forced visible" before PDF capture.
+   ------------------------------------------------------------ */
+@keyframes deck-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.deck-fade-up {
+  animation: deck-fade-up 0.8s var(--d-ease) both;
+}
+
+.deck-fade-up--delay-1 {
+  animation-delay: 0.1s;
+}
+
+.deck-fade-up--delay-2 {
+  animation-delay: 0.2s;
+}
+
+/* ------------------------------------------------------------
+   Small screens — JS applies a computed scale transform to
+   .slide via CSS var --slide-scale; layout box never reflows.
+   ------------------------------------------------------------ */
+.slide {
+  transform: scale(var(--slide-scale, 1));
+}
+
+/* ------------------------------------------------------------
+   Print — one slide per page, clean PDF via Ctrl/Cmd+P
+   ------------------------------------------------------------ */
+@media print {
+  @page {
+    size: 1280px 720px;
+    margin: 0;
+  }
+
+  /* Force every background color/gradient/image to print exactly as
+     rendered on screen — without this, browsers that default to
+     "background graphics off" drop dark-slide backgrounds and photo
+     backgrounds, leaving white-on-white text and blank image areas. */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  html,
+  body {
+    background: #fff;
+  }
+
+  .deck-controls,
+  .deck-counter,
+  .deck-progress {
+    display: none !important;
+  }
+
+  .deck {
+    height: auto;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .slide-viewport {
+    display: block;
+    height: auto;
+    overflow: visible;
+    scroll-snap-align: none;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    transform: none !important;
+  }
+
+  .slide--dark {
+    background: var(--d-bg-black) !important;
+    color: var(--d-inverse) !important;
+  }
+
+  .slide--cover {
+    background: var(--d-bg-black) !important;
+    color: var(--d-inverse) !important;
+  }
+
+  .slide--photo {
+    background: var(--d-bg-black) !important;
+  }
+
+  .slide--social {
+    background: var(--d-bg) !important;
+  }
+
+  .slide--cover::before,
+  .slide--photo::before,
+  .slide--cover::after,
+  .slide--photo::after {
+    display: block !important;
+  }
+
+  img {
+    filter: none !important;
+  }
+
+  .deck-fade-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

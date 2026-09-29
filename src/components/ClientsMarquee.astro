@@ -1,0 +1,155 @@
+---
+/**
+ * ClientsMarquee — "Why UiEdge" trust-signal strip.
+ * Its own light-gray section right after the Hero.
+ * Originally rendered client logo <img> tags in each tile; since UiEdge has
+ * no real client logos to show yet, tiles now render honest text chips
+ * instead, reusing the existing .hero__clients-tile container/styles as-is.
+ */
+const CHIPS = [
+  "Kozhikode, India",
+  "9-step delivery process",
+  "Own SaaS products",
+  "Strategy-first",
+  "Client work + owned products",
+  "Fast turnaround",
+];
+---
+
+<div class="hero__clients">
+  <div class="container hero__clients-inner">
+    <div class="hero__clients-head">
+      <span class="hero__clients-label">
+        <span class="hero__clients-mark" aria-hidden="true"></span>
+        <span class="hero__clients-title">Why UiEdge</span>
+      </span>
+      <span class="hero__clients-period">©</span>
+    </div>
+    <ul class="hero__clients-logos">
+      {CHIPS.map((chip) => (
+        <li class="hero__clients-tile">
+          <span class="hero__clients-chip">{chip}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .hero__clients {
+    position: relative;
+    z-index: 2;
+    background: var(--color-l-bg);
+  }
+
+  .hero__clients-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    padding-block: 60px;
+  }
+
+  .hero__clients-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .hero__clients-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .hero__clients-mark {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-text);
+  }
+
+  .hero__clients-mark::before,
+  .hero__clients-mark::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: var(--color-bg);
+  }
+
+  .hero__clients-mark::before {
+    width: 9px;
+    height: 1.5px;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero__clients-mark::after {
+    width: 1.5px;
+    height: 9px;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero__clients-title {
+    font-size: 16px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+  }
+
+  .hero__clients-period {
+    justify-self: end;
+    font-size: 16px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+  }
+
+  .hero__clients-logos {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    width: 100%;
+  }
+
+  .hero__clients-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-surface);
+    border-radius: 14px;
+    min-height: 155px;
+    aspect-ratio: 211 / 155;
+    padding: var(--space-4);
+    text-align: center;
+  }
+
+  .hero__clients-chip {
+    font-family: var(--font-body);
+    font-size: var(--fs-label);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+    opacity: 0.75;
+  }
+
+  .hero__clients-tile img {
+    max-width: 70%;
+    max-height: 40px;
+    object-fit: contain;
+  }
+
+  @media (max-width: 809px) {
+    .hero__clients-logos {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .hero__clients-inner {
+      gap: 24px;
+      padding-block: 30px 40px;
+    }
+  }
+</style>

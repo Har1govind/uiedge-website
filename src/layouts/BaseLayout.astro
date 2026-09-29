@@ -1,0 +1,131 @@
+---
+/**
+ * BaseLayout — shared <html> shell for every page.
+ *
+ * Props:
+ *  - title:       <title> (falls back to site name)
+ *  - description: meta description (defaults to site-wide description)
+ *  - image:       Open Graph image URL (absolute)
+ *  - canonical:   canonical URL (absolute)
+ *
+ * All pages render inside <slot />. Header/footer arrive in Phase 2.
+ */
+import "../styles/global.css";
+
+// Self-hosted fonts (measured from live site: Geist + Inter)
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/geist-sans/400.css";
+import "@fontsource/geist-sans/500.css";
+import "@fontsource/geist-sans/600.css";
+
+import { SITE, SOCIALS } from "../data/site";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Absolute URL for og:image/twitter:image — omitted when not provided. */
+  image?: string;
+  canonical?: string;
+}
+
+const {
+  title = SITE.name,
+  description = SITE.description,
+  image,
+  canonical,
+} = Astro.props;
+
+// Site URL is env-driven so local builds don't claim the production origin.
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "http://localhost:4321/";
+
+// Only append the site name when it isn't already part of the title.
+const pageTitle = title === SITE.name || title.includes(SITE.name) ? title : `${title} — ${SITE.name}`;
+const canonicalHref = canonical ?? siteUrl;
+const themeColor = "#141414";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content={themeColor} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalHref} />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalHref} />
+    {image && <meta property="og:image" content={image} />}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {image && <meta name="twitter:image" content={image} />}
+
+    <!-- Structured data -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": SITE.name,
+      "description": "Strategy-first UI/UX design and digital product studio in Kozhikode, Kerala.",
+      "url": siteUrl,
+      "email": SITE.email,
+      "areaServed": ["India", "GCC", "Worldwide"],
+      "address": { "@type": "PostalAddress", "addressLocality": "Kozhikode", "addressRegion": "Kerala", "addressCountry": "IN" },
+      "sameAs": SOCIALS.filter((s) => s.url.startsWith("http")).map((s) => s.url),
+    })} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <div class="viewport-bottom-blur" aria-hidden="true"></div>
+
+    <style>
+      /* Fixed frosted-blur strip pinned to the bottom of the viewport,
+         sitting above scrolling content regardless of scroll position. */
+      .viewport-bottom-blur {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 80px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        mask-image: linear-gradient(to top, black 0%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to top, black 0%, transparent 100%);
+        pointer-events: none;
+        z-index: var(--z-header);
+      }
+    </style>
+
+    <script>
+      import { initSmoothScroll } from "../lib/smoothScroll";
+      import { initReveal } from "../lib/reveal";
+
+      initSmoothScroll();
+      initReveal();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+---
+/**
+ * Blog index — [verbatim] content captured from the blog index.
+ * "Expert Insights." + intro copy + all 7 posts.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogCard from "../components/BlogCard.astro";
+import CTASection from "../components/CTASection.astro";
+import { BLOG_POSTS } from "../data/blog";
+
+const title = "Blog";
+const description =
+  "Practical thinking on product design, UX strategy, and building software that performs.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="page-intro">
+    <div class="container page-intro__inner">
+      <p class="page-intro__eyebrow">Blog</p>
+      <h1 class="page-intro__title">Insights.</h1>
+      <p class="page-intro__subtext">
+        Practical thinking on product design, UX strategy, and building software that performs.
+      </p>
+      <p class="page-intro__subtext page-intro__subtext--muted">
+        From design principles to dev handoff — what we've learned building for clients and for our own products.
+      </p>
+    </div>
+  </section>
+
+  <section class="section container blog-index">
+    <div class="blog-index__grid">
+      {BLOG_POSTS.map((post) => <BlogCard post={post} />)}
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .page-intro {
+    padding-top: calc(var(--header-height) + 90px);
+    padding-bottom: var(--space-11);
+    background: var(--color-bg-black);
+  }
+
+  .page-intro__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 900px;
+  }
+
+  .page-intro__eyebrow {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+  }
+
+  .page-intro__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tighter);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text-inverse);
+    margin-bottom: var(--space-2);
+  }
+
+  .page-intro__subtext {
+    max-width: 40rem;
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body);
+    color: var(--color-text-inverse-secondary);
+  }
+
+  .page-intro__subtext--muted {
+    color: var(--color-text-inverse-muted);
+  }
+
+  .blog-index__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+
+  @media (max-width: 1199px) {
+    .blog-index__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 809px) {
+    .page-intro {
+      padding-top: calc(var(--header-height) + 40px);
+    }
+
+    .blog-index__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

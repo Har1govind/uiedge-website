@@ -1,0 +1,319 @@
+---
+/**
+ * Header — fixed global navigation.
+ * [measured] 60px tall, #141414 + backdrop-filter blur(7px) + 1px border.
+ * Logo: UiEdge mark (public/images/logo/uiedge-black.png).
+ * Desktop nav: Studio · Projects · Blog · Contact — Inter 600 16px.
+ * Hamburger visible at ALL widths; no CTA pill in header (CTA lives in hero).
+ */
+const NAV = [
+  { label: "Studio", href: "/studio", count: "" },
+  { label: "Projects", href: "/projects", count: "" },
+  { label: "Blog", href: "/blog", count: "" },
+  { label: "Contact", href: "/contact", count: "" },
+];
+const MOBILE_NAV = [
+  { label: "Home", href: "/" },
+  { label: "Studio", href: "/studio" },
+  { label: "Projects", href: "/projects" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
+---
+
+<header class="site-header" data-header>
+  <nav class="container site-header__top" aria-label="Primary">
+    <a class="site-header__logo" href="/" aria-label="UiEdge — Home">
+      <img class="site-header__logo-mark" src="/images/logo/uiedge-black.png" alt="UiEdge" width="28" height="28" />
+    </a>
+
+    <div class="site-header__links">
+      {NAV.map((link) => (
+        <a class="site-header__link" href={link.href}>
+          {link.label}
+          {link.count && <sup class="site-header__count">{link.count}</sup>}
+        </a>
+      ))}
+    </div>
+
+    <button
+      class="site-header__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      aria-label="Open menu"
+      data-menu-toggle
+    >
+      <span class="site-header__bar" aria-hidden="true"></span>
+      <span class="site-header__bar" aria-hidden="true"></span>
+    </button>
+  </nav>
+
+  <!-- Full-screen mobile menu -->
+  <div class="site-header__menu" id="site-menu" data-menu hidden>
+    <nav class="site-header__menu-inner" aria-label="Mobile">
+      <ul class="site-header__menu-list">
+        {MOBILE_NAV.map((link) => (
+          <li>
+            <a class="site-header__menu-link" href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+      <div class="site-header__menu-bottom">
+        <a class="site-header__menu-email" href="mailto:admin@uiedge.in">admin@uiedge.in</a>
+        <div class="site-header__menu-social">
+          <a href="https://linkedin.com/company/uiedge" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://instagram.com/uiedge.in" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-header);
+    height: var(--header-height);
+    background: var(--header-bg);
+    -webkit-backdrop-filter: blur(var(--header-blur));
+    backdrop-filter: blur(var(--header-blur));
+    border-bottom: var(--header-border);
+  }
+
+  .site-header__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    height: 100%;
+  }
+
+  /* Logo — mark + wordmark, Inter 600 20px, -0.04em, lh 110% */
+  .site-header__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    line-height: 1.1;
+    color: var(--color-text);
+    white-space: nowrap;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .site-header__logo-mark {
+    display: block;
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  .site-header__logo:hover {
+    color: var(--color-text);
+    opacity: 0.8;
+  }
+
+  /* Centered desktop nav — [measured] Inter 600 16px */
+  .site-header__links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-7);
+  }
+
+  .site-header__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    line-height: 1.1;
+    color: var(--color-text);
+    white-space: nowrap;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .site-header__link:hover {
+    opacity: 0.6;
+  }
+
+  /* "27" superscript — [measured] 9px/600 */
+  .site-header__count {
+    font-size: 9px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    line-height: 1;
+    opacity: 0.6;
+  }
+
+  /* Hamburger — [measured] two 2px bars, visible at all widths */
+  .site-header__toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: transparent;
+  }
+
+  .site-header__bar {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition:
+      transform var(--dur-fast) var(--ease-out),
+      opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .site-header__toggle[aria-expanded="true"] .site-header__bar:nth-child(1) {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .site-header__toggle[aria-expanded="true"] .site-header__bar:nth-child(2) {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+
+  /* Hide inline links on tablet/mobile — hamburger opens the menu */
+  @media (max-width: 1199px) {
+    .site-header__links {
+      display: none;
+    }
+  }
+
+  /* --- Full-screen mobile menu --- */
+  .site-header__menu {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-header) - 1);
+    background: var(--color-bg);
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--dur) var(--ease-out),
+      visibility var(--dur);
+  }
+
+  .site-header__menu.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .site-header__menu-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%;
+    padding: 140px var(--container-pad) var(--space-10);
+  }
+
+  .site-header__menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* [measured] mobile menu links 60px/600/-0.06em */
+  .site-header__menu-link {
+    font-family: var(--font-display);
+    font-size: 60px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tightest);
+    line-height: 1.1;
+    color: var(--color-text);
+    display: inline-block;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .site-header__menu-link:hover {
+    opacity: 0.6;
+  }
+
+  .site-header__menu-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .site-header__menu-email {
+    font-size: var(--fs-h4);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+  }
+
+  .site-header__menu-social {
+    display: flex;
+    gap: var(--space-5);
+    font-size: var(--fs-small);
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 809px) {
+    .site-header__menu-link {
+      font-size: 40px;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const toggle = header?.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const menu = header?.querySelector<HTMLElement>("[data-menu]");
+
+  if (toggle && menu) {
+    const openMenu = () => {
+      menu.classList.add("is-open");
+      menu.hidden = false;
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Close menu");
+      document.body.classList.add("no-scroll");
+    };
+
+    const closeMenu = () => {
+      menu.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
+      document.body.classList.remove("no-scroll");
+      // Defer display:none until the transition finishes.
+      window.setTimeout(() => {
+        menu.hidden = true;
+      }, 320);
+    };
+
+    toggle.addEventListener("click", () => {
+      if (menu.hidden) {
+        openMenu();
+      } else {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !menu.hidden) {
+        closeMenu();
+      }
+    });
+
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => closeMenu());
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 1199 && !menu.hidden) {
+        closeMenu();
+      }
+    });
+  }
+</script>

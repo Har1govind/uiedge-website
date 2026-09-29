@@ -1,0 +1,845 @@
+---
+/**
+ * UiEdge Portfolio Deck — /portfolio
+ *
+ * A self-contained, presentation-style deck: 16 fixed 1280x720 slides,
+ * vertical scroll-snap, keyboard + on-screen nav, and a "Download deck
+ * (PDF)" button that captures every slide into one landscape PDF via
+ * html2canvas + jsPDF. A @media print fallback (deck.css) gives a clean
+ * one-slide-per-page PDF via the browser's own Print dialog.
+ *
+ * Deliberately does NOT use BaseLayout — the deck is its own world
+ * (no site header/footer), but reuses the live site's real design
+ * tokens: Inter for display/body, Geist Sans for labels (see
+ * src/styles/global.css) — not the generic Space Grotesk / JetBrains
+ * Mono pairing suggested in the build brief, since the live site's own
+ * CSS defines Inter + Geist.
+ *
+ * Case studies (slides 5–8), the testimonial slide (13) and a few
+ * product/company specifics are drafted placeholders — there is no real
+ * client data, metrics, or quotes in this repo to pull from. Swap them
+ * for real names, numbers and quotes before sending this to a client.
+ */
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/geist-sans/400.css";
+import "@fontsource/geist-sans/500.css";
+import "@fontsource/geist-sans/600.css";
+import "../styles/deck.css";
+
+const YEAR = "2026";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Portfolio Deck — UiEdge</title>
+    <meta
+      name="description"
+      content="UiEdge — a strategy-first digital product studio. Portfolio deck: process, case studies, products, and how to work with us."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="deck-progress" data-deck-progress style="width:0%"></div>
+
+    <div class="deck">
+      <!-- ============================================================
+           01 — Cover / Hero
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide slide--cover">
+          <div class="slide-inner">
+            <div class="cover-top deck-fade-up">
+              <img class="logo-mark" src="/images/logo/uiedge-white.png" alt="UiEdge" style="height:100px; width:auto;" />
+              <span class="cover-date">Portfolio · {YEAR}</span>
+            </div>
+            <div>
+              <p class="eyebrow deck-fade-up">01 / Studio</p>
+              <h1 class="cover-headline deck-fade-up deck-fade-up--delay-1">
+                From Digitalization to Automation, We Build Around Your Vision.
+              </h1>
+              <p class="cover-sub deck-fade-up deck-fade-up--delay-2">
+                A strategy-first digital product studio — we design and build websites, apps, and SaaS products
+                where design is business strategy.
+              </p>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>Kozhikode, India · {YEAR}</span>
+            <span class="footer-strip__num">01 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           02 — About UiEdge
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide">
+          <div class="slide-inner">
+            <p class="eyebrow">02 / About</p>
+            <h2 class="headline headline--lg">We're not a design agency.</h2>
+            <div class="grid grid--2" style="margin-top:28px; gap:48px; flex:1;">
+              <div>
+                <p class="body-copy">
+                  UiEdge is a strategy-first digital product studio based in Kozhikode, Kerala. Design, to us, is
+                  business strategy — every engagement starts from business goals, user psychology, and
+                  scalability, and is measured against real outcomes: conversions, adoption, efficiency, brand
+                  perception.
+                </p>
+                <p class="body-copy">
+                  What sets us apart: we don't only design for clients — we build and run our own software
+                  alongside client work, including a veterinary management platform and a point-of-sale system.
+                </p>
+                <div class="grid grid--3" style="margin-top:18px; gap:14px; max-width:600px;">
+                  <div class="stat-block"><div class="stat-block__num">02</div><div class="stat-block__label">Owned products in build</div></div>
+                  <div class="stat-block"><div class="stat-block__num">09</div><div class="stat-block__label">Step delivery process</div></div>
+                  <div class="stat-block"><div class="stat-block__num">04</div><div class="stat-block__label">Industries served so far</div></div>
+                </div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;">
+                  <span class="chip">Strategy-first</span>
+                  <span class="chip">Design + build, one team</span>
+                  <span class="chip">Kozhikode → Pan-India → Gulf → Global</span>
+                </div>
+              </div>
+              <div style="border-radius:16px; overflow:hidden; align-self:stretch;">
+                <img
+                  src="/images/deck/about-team.jpg"
+                  alt="Studio workspace"
+                  style="width:100%; height:100%; object-fit:cover;"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">02 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           03 — What We Do
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide">
+          <div class="slide-inner">
+            <p class="eyebrow">03 / What We Do</p>
+            <h2 class="headline headline--lg">Range, without the 40-item list.</h2>
+            <p class="subline" style="font-size:15px; margin-top:8px;">
+              Six things we're actually good at — not a service menu padded out to look impressive.
+            </p>
+            <div class="grid grid--2" style="margin-top:18px; gap:40px; flex:1;">
+              <div class="grid" style="grid-template-columns:repeat(3,1fr); gap:12px; align-content:start;">
+                <div class="card" style="padding:14px;">
+                  <div class="card__icon" style="width:34px; height:34px; margin-bottom:8px;">
+                    <svg class="icon" viewBox="0 0 24 24" style="width:17px;height:17px;"><circle cx="12" cy="12" r="9"></circle><path d="M15 9l-3.5 1.5L10 14l3.5-1.5L15 9z"></path></svg>
+                  </div>
+                  <div class="card__title" style="font-size:14px;">Product Strategy & Discovery</div>
+                  <div class="card__desc">UX audits, research, MVP scoping, roadmaps.</div>
+                </div>
+                <div class="card" style="padding:14px;">
+                  <div class="card__icon" style="width:34px; height:34px; margin-bottom:8px;">
+                    <svg class="icon" viewBox="0 0 24 24" style="width:17px;height:17px;"><rect x="4" y="4" width="16" height="5" rx="1"></rect><rect x="4" y="11" width="16" height="5" rx="1"></rect><rect x="4" y="18" width="10" height="2" rx="1"></rect></svg>
+                  </div>
+                  <div class="card__title" style="font-size:14px;">UX / UI Design</div>
+                  <div class="card__desc">Websites, apps, SaaS dashboards, enterprise UI, design systems.</div>
+                </div>
+                <div class="card" style="padding:14px;">
+                  <div class="card__icon" style="width:34px; height:34px; margin-bottom:8px;">
+                    <svg class="icon" viewBox="0 0 24 24" style="width:17px;height:17px;"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"></path></svg>
+                  </div>
+                  <div class="card__title" style="font-size:14px;">Web Design & Development</div>
+                  <div class="card__desc">Sites, landing pages, e-commerce, performance & SEO.</div>
+                </div>
+                <div class="card" style="padding:14px;">
+                  <div class="card__icon" style="width:34px; height:34px; margin-bottom:8px;">
+                    <svg class="icon" viewBox="0 0 24 24" style="width:17px;height:17px;"><rect x="7" y="2" width="10" height="20" rx="2"></rect><line x1="11" y1="18" x2="13" y2="18"></line></svg>
+                  </div>
+                  <div class="card__title" style="font-size:14px;">Mobile Apps</div>
+                  <div class="card__desc">iOS, Android, cross-platform, PWAs.</div>
+                </div>
+                <div class="card" style="padding:14px;">
+                  <div class="card__icon" style="width:34px; height:34px; margin-bottom:8px;">
+                    <svg class="icon" viewBox="0 0 24 24" style="width:17px;height:17px;"><rect x="8" y="8" width="8" height="8" rx="1"></rect><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.5 4.5l3 3M16.5 16.5l3 3M19.5 4.5l-3 3M7.5 16.5l-3 3"></path></svg>
+                  </div>
+                  <div class="card__title" style="font-size:14px;">Product & Engineering</div>
+                  <div class="card__desc">MVP builds, frontend, dev-handoff support.</div>
+                </div>
+                <div class="card" style="padding:14px;">
+                  <div class="card__icon" style="width:34px; height:34px; margin-bottom:8px;">
+                    <svg class="icon" viewBox="0 0 24 24" style="width:17px;height:17px;"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"></path><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"></path></svg>
+                  </div>
+                  <div class="card__title" style="font-size:14px;">Branding & Growth</div>
+                  <div class="card__desc">Identity, decks, marketing retainers.</div>
+                </div>
+              </div>
+              <div class="content-photo" style="align-self:stretch;">
+                <img src="/images/deck/design-workspace2.jpg" alt="Studio workspace" />
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">03 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           04 — Our Process
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide slide--dark">
+          <div class="slide-inner">
+            <p class="eyebrow">04 / Process</p>
+            <h2 class="headline headline--lg">A system, not a freelancer.</h2>
+            <p class="subline" style="font-size:15px; margin-top:10px;">
+              Nine steps, each with a business reason attached — not just an activity to check off.
+            </p>
+            <div class="process-grid" style="margin-top:20px;">
+              {[
+                ["01", "Discovery", "Align on business goals before design."],
+                ["02", "Research", "Understand real users, not assumptions."],
+                ["03", "Strategy", "Decide what to build and why."],
+                ["04", "Wireframing", "Structure before style — cheaper to change early."],
+                ["05", "UI Design", "Premium, on-brand, conversion-focused screens."],
+                ["06", "Prototype", "Test the experience before code."],
+                ["07", "Testing", "Validate with real users, reduce risk."],
+                ["08", "Dev Handoff", "Clean specs so build matches design."],
+                ["09", "Optimization", "Measure and improve after launch."],
+              ].map(([num, title, desc]) => (
+                <div class="process-step">
+                  <div class="process-step__num">{num}</div>
+                  <div class="process-step__title">{title}</div>
+                  <div class="process-step__desc">{desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">04 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           05 — Case Study 1 · Overview
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide">
+          <div class="slide-inner">
+            <p class="eyebrow">05 / Case Study — Hospitality</p>
+            <h2 class="headline headline--md">A booking site guests didn't trust.</h2>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
+              <span class="chip">Hospitality</span>
+              <span class="chip">8-week timeline</span>
+              <span class="chip">Web design + Development</span>
+            </div>
+            <div class="grid grid--2" style="margin-top:20px; gap:44px; flex:1; align-items:start;">
+              <div>
+                <p class="body-copy" style="max-width:100%;">
+                  <strong style="color:var(--d-text);">Context.</strong> A boutique hospitality brand in Kerala
+                  came to us with a five-year-old site that no longer matched the quality of the stay it was
+                  selling.
+                </p>
+                <p class="body-copy" style="max-width:100%;">
+                  <strong style="color:var(--d-text);">The challenge.</strong> Slow pages, a cluttered nine-item
+                  nav, and a booking flow buried three clicks deep were costing them direct enquiries to OTAs.
+                </p>
+                <p class="body-copy" style="max-width:100%;">
+                  <strong style="color:var(--d-text);">The goal.</strong> A faster, calmer site that earns trust in
+                  the first scroll and gets a visitor to "enquire" in one clear path.
+                </p>
+                <p class="body-copy" style="max-width:100%;">
+                  <strong style="color:var(--d-text);">Our approach.</strong> Cut the nav from nine items to five,
+                  rebuilt the homepage around one hero decision, and moved booking to a persistent, single-step
+                  call to action.
+                </p>
+              </div>
+              <div>
+                <div class="content-photo" style="height:88px; margin-bottom:10px;">
+                  <img src="/images/deck/hospitality.jpg" alt="Boutique hospitality property" />
+                </div>
+                <div class="browser-frame">
+                  <div class="browser-frame__bar">
+                    <span class="browser-frame__dot"></span><span class="browser-frame__dot"></span><span class="browser-frame__dot"></span>
+                  </div>
+                  <div class="browser-frame__screen">
+                    <div class="mock-nav">
+                      <div class="mock-logo"></div>
+                      <div class="mock-nav-links"><span></span><span></span><span></span></div>
+                    </div>
+                    <div class="mock-hero"></div>
+                    <div class="mock-row"><div class="mock-block"></div><div class="mock-block"></div><div class="mock-block"></div></div>
+                  </div>
+                </div>
+                <div style="margin-top:14px;">
+                  <span class="callout">Nav simplified 9 → 5 items — faster decisions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">05 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           06 — Case Study 1 · Solution & Outcome
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide">
+          <div class="slide-inner">
+            <p class="eyebrow">06 / Case Study — Hospitality</p>
+            <h2 class="headline headline--md">Clean, fast, and built to convert.</h2>
+            <div class="grid grid--2" style="margin-top:22px; gap:44px; flex:1; align-items:start;">
+              <div>
+                <div class="browser-frame">
+                  <div class="browser-frame__bar">
+                    <span class="browser-frame__dot"></span><span class="browser-frame__dot"></span><span class="browser-frame__dot"></span>
+                  </div>
+                  <div class="browser-frame__screen">
+                    <div class="mock-nav">
+                      <div class="mock-logo"></div>
+                      <div class="mock-nav-links"><span></span><span></span></div>
+                    </div>
+                    <div class="mock-hero"></div>
+                    <div class="mock-row" style="margin-top:10px;"><div class="mock-block"></div><div class="mock-block"></div></div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+                  <span class="chip">&lt;2s load time</span>
+                  <span class="chip">Fully responsive</span>
+                  <span class="chip">Accessible by default</span>
+                </div>
+              </div>
+              <div>
+                <p class="body-copy" style="max-width:100%;">
+                  From an outdated, hard-to-trust site to a clean, fast, conversion-focused presence — loads in
+                  under two seconds, fully responsive, accessible by default.
+                </p>
+                <div class="content-photo" style="height:130px; margin-top:16px;">
+                  <img src="/images/deck/hospitality.jpg" alt="Boutique hospitality property" />
+                </div>
+                <div style="margin-top:16px; padding:18px 20px; border-radius:16px; border:1px solid var(--d-border); background:var(--d-surface);">
+                  <p style="font-size:13.5px; line-height:1.6; color:var(--d-text-secondary); font-style:italic;">
+                    "The new site finally looks like the property we run. Guests comment on it before they even
+                    check in."
+                  </p>
+                  <p style="margin-top:8px; font-family:var(--d-font-label); font-size:11px; letter-spacing:0.04em; color:var(--d-text-muted); text-transform:uppercase;">
+                    — Owner, Hospitality Client
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">06 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           07 — Case Study 2 · Overview
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide">
+          <div class="slide-inner">
+            <p class="eyebrow">07 / Case Study — SaaS</p>
+            <h2 class="headline headline--md">An admin panel nobody wanted to open.</h2>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
+              <span class="chip">SaaS / Internal Tools</span>
+              <span class="chip">6-week timeline</span>
+              <span class="chip">Dashboard redesign</span>
+            </div>
+            <div class="grid grid--2" style="margin-top:20px; gap:44px; flex:1; align-items:start;">
+              <div>
+                <p class="body-copy" style="max-width:100%;">
+                  <strong style="color:var(--d-text);">Context.</strong> An early-stage SaaS team had outgrown
+                  their internal dashboard — built fast, never redesigned, now the daily tool for their whole ops
+                  team.
+                </p>
+                <p class="body-copy" style="max-width:100%;">
+                  <strong style="color:var(--d-text);">The challenge.</strong> Dense, unlabelled tables and
+                  inconsistent patterns meant new hires needed a week just to find things.
+                </p>
+                <p class="body-copy" style="max-width:100%;">
+                  <strong style="color:var(--d-text);">The goal.</strong> A dashboard that a new team member can
+                  use correctly on day one, without a walkthrough.
+                </p>
+                <p class="body-copy" style="max-width:100%;">
+                  <strong style="color:var(--d-text);">Our approach.</strong> Designed a proper information
+                  hierarchy and a small component system first, then rebuilt each screen against it — one pattern
+                  per job, not one screen at a time.
+                </p>
+              </div>
+              <div>
+                <div class="laptop-frame">
+                  <div class="laptop-frame__screen">
+                    <div class="dash-topbar"><span></span><span></span><span></span></div>
+                    <div class="dash-body">
+                      <div class="dash-sidebar"><span></span><span></span><span></span><span></span></div>
+                      <div class="dash-main">
+                        <div class="dash-card dash-card--wide"></div>
+                        <div class="dash-card"></div><div class="dash-card"></div><div class="dash-card"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="laptop-frame__base"></div>
+                </div>
+                <div class="content-photo" style="height:110px; margin-top:16px;">
+                  <img src="/images/deck/dashboard-analytics.jpg" alt="Analytics dashboard close-up" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">07 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           08 — Case Study 2 · Solution & Outcome
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide">
+          <div class="slide-inner">
+            <p class="eyebrow">08 / Case Study — SaaS</p>
+            <h2 class="headline headline--md">One system, every screen.</h2>
+            <div class="grid grid--2" style="margin-top:24px; gap:44px; flex:1; align-items:center;">
+              <div class="laptop-frame">
+                <div class="laptop-frame__screen">
+                  <div class="dash-topbar"><span></span><span></span></div>
+                  <div class="dash-body">
+                    <div class="dash-sidebar"><span></span><span></span><span></span></div>
+                    <div class="dash-main">
+                      <div class="dash-card"></div><div class="dash-card"></div><div class="dash-card"></div>
+                      <div class="dash-card dash-card--wide"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="laptop-frame__base"></div>
+              </div>
+              <div>
+                <p class="body-copy" style="max-width:100%;">
+                  A documented component library replaced one-off screens — new features now ship in days, not
+                  weeks, and onboarding a new hire takes an afternoon instead of a week.
+                </p>
+                <p class="body-copy" style="max-width:100%; margin-top:12px;">
+                  Every table, filter, and status badge now comes from the same source — so the product feels
+                  consistent even as different people build different parts of it.
+                </p>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;">
+                  <span class="chip">Design system delivered</span>
+                  <span class="chip">Dev handoff docs included</span>
+                  <span class="chip">WCAG-checked</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">08 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           09 — Our Products · Veterinary Management Software
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide slide--dark">
+          <div class="slide-inner">
+            <p class="eyebrow">09 / Our Products</p>
+            <h2 class="headline headline--md">A veterinary management platform, built and run by us.</h2>
+            <div class="grid grid--2" style="margin-top:24px; gap:44px; flex:1; align-items:center;">
+              <div>
+                <p class="body-copy" style="max-width:100%;">
+                  A single platform for clinics and independent vets to manage appointments, patient records,
+                  billing, and follow-ups — replacing the spreadsheet-and-notebook mix most clinics still run on.
+                </p>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;">
+                  <span class="chip">Appointment scheduling</span>
+                  <span class="chip">Patient records</span>
+                  <span class="chip">Billing & invoicing</span>
+                  <span class="chip">Owner follow-ups</span>
+                </div>
+                <p style="margin-top:22px; font-family:var(--d-font-display); font-weight:600; font-size:19px; letter-spacing:-0.01em;">
+                  We don't just design products — we build and run our own.
+                </p>
+                <div class="content-photo" style="height:120px; margin-top:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.12);">
+                  <img src="/images/deck/vet-dashboard-gen.png" alt="Veterinary Management Software Overview" style="width:100%; height:100%; object-fit:cover;" />
+                </div>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                <div class="content-photo" style="width:100%; max-width:480px; height:290px; border-radius:16px; border:1px solid rgba(255,255,255,0.15); box-shadow:0 20px 40px rgba(0,0,0,0.5); overflow:hidden;">
+                  <img src="/images/deck/vet-dashboard-gen.png" alt="Veterinary Management Platform UI" style="width:100%; height:100%; object-fit:cover;" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">09 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           10 — Our Products · POS System
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide">
+          <div class="slide-inner">
+            <p class="eyebrow">10 / Our Products</p>
+            <h2 class="headline headline--md">A point-of-sale system for retail and outlets.</h2>
+            <div class="grid grid--2" style="margin-top:24px; gap:44px; flex:1; align-items:center;">
+              <div>
+                <p class="body-copy" style="max-width:100%;">
+                  Built for small retail chains and cafés running multiple outlets — one dashboard for sales,
+                  stock, and staff across every location, on a simple per-outlet subscription.
+                </p>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;">
+                  <span class="chip">Multi-outlet dashboard</span>
+                  <span class="chip">Inventory sync</span>
+                  <span class="chip">Staff & shift tracking</span>
+                  <span class="chip">Sales analytics</span>
+                </div>
+                <p class="body-copy" style="max-width:100%; margin-top:18px;">
+                  Priced per outlet, so a single-store café and a five-outlet chain both pay for exactly what they
+                  use — <strong style="color:var(--d-text);">no flat enterprise fee, no unused seats</strong>.
+                </p>
+                <div class="content-photo" style="height:100px; margin-top:14px; border-radius:12px; border:1px solid var(--d-border);">
+                  <img src="/images/deck/pos-counter-gen.png" alt="POS Counter Checkout" style="width:100%; height:100%; object-fit:cover;" />
+                </div>
+              </div>
+              <div style="display:flex; justify-content:center; align-items:center;">
+                <div class="content-photo" style="width:100%; max-width:480px; height:290px; border-radius:16px; border:1px solid var(--d-border-strong); box-shadow:0 20px 40px rgba(10,10,10,0.12); overflow:hidden;">
+                  <img src="/images/deck/pos-counter-gen.png" alt="POS System Interface" style="width:100%; height:100%; object-fit:cover;" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">10 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           11 — Capabilities & Tools
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide">
+          <div class="slide-inner">
+            <p class="eyebrow">11 / Capabilities</p>
+            <h2 class="headline headline--lg">Signal, not a logo wall.</h2>
+            <div class="grid grid--2" style="margin-top:26px; gap:24px 44px; flex:1;">
+              <div class="grid grid--2" style="gap:22px 30px; align-content:start;">
+                <div>
+                  <div class="card__title" style="margin-bottom:12px;">Design</div>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <span class="chip">Figma</span><span class="chip">Design systems</span><span class="chip">Prototyping</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="card__title" style="margin-bottom:12px;">Build</div>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <span class="chip">Astro</span><span class="chip">React</span><span class="chip">Tailwind CSS</span><span class="chip">Node.js</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="card__title" style="margin-bottom:12px;">Platforms</div>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <span class="chip">Web</span><span class="chip">iOS</span><span class="chip">Android</span><span class="chip">SaaS dashboards</span><span class="chip">Enterprise / CRM / ERP</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="card__title" style="margin-bottom:12px;">Handoff & Quality</div>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <span class="chip">Detailed specs</span><span class="chip">WCAG accessibility</span><span class="chip">Performance budgets</span>
+                  </div>
+                </div>
+              </div>
+              <div class="content-photo" style="align-self:stretch;">
+                <img src="/images/deck/design-desk.jpg" alt="Development workspace" />
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">11 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           12 — Why UiEdge
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide slide--dark">
+          <div class="slide-inner">
+            <p class="eyebrow">12 / Why UiEdge</p>
+            <h2 class="headline headline--lg">Six reasons to bet on us.</h2>
+            <p class="subline" style="font-size:15px; margin-top:10px;">
+              Every studio says they're strategic. Here's what that actually looks like in how we work.
+            </p>
+            <div class="grid grid--3" style="margin-top:22px;">
+              <div class="card">
+                <div class="card__icon"><svg class="icon" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M4 10h16"></path></svg></div>
+                <div class="card__title">We build our own products</div>
+                <div class="card__desc">We think in products and outcomes, not deliverables.</div>
+              </div>
+              <div class="card">
+                <div class="card__icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle></svg></div>
+                <div class="card__title">Strategy first</div>
+                <div class="card__desc">Design tied to business goals and measurable results.</div>
+              </div>
+              <div class="card">
+                <div class="card__icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"></path></svg></div>
+                <div class="card__title">A real, proven process</div>
+                <div class="card__desc">Defined milestones, transparent pricing, clear revisions.</div>
+              </div>
+              <div class="card">
+                <div class="card__icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l2.5 5.5L20 9l-4.2 4 1 5.5L12 16l-4.8 2.5 1-5.5L4 9l5.5-.5L12 3z"></path></svg></div>
+                <div class="card__title">Premium craft</div>
+                <div class="card__desc">This deck is the proof.</div>
+              </div>
+              <div class="card">
+                <div class="card__icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v10H8l-4 4V5z"></path></svg></div>
+                <div class="card__title">Fast, clear communication</div>
+                <div class="card__desc">Responsiveness in sales means responsiveness in delivery.</div>
+              </div>
+              <div class="card">
+                <div class="card__icon"><svg class="icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V7a4 4 0 018 0v4"></path></svg></div>
+                <div class="card__title">Honest scarcity</div>
+                <div class="card__desc">A limited number of projects each month, to protect quality.</div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">12 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           13 — Social Proof
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide slide--photo slide--social">
+          <div class="slide-inner" style="justify-content:center;">
+            <p class="eyebrow">13 / Where We Stand</p>
+            <h2 class="headline headline--lg" style="max-width:760px;">Early-stage, and purposefully selective.</h2>
+            <div class="grid grid--2" style="margin-top:20px; gap:44px; align-items:start;">
+              <p class="body-copy" style="max-width:100%;">
+                We're a young studio building a client list on purpose, not volume — the case studies on the
+                previous pages are the real proof so far. We take on a limited number of projects each month,
+                which means the ones we take get our full attention. Client references and testimonials
+                available on request as our roster grows.
+              </p>
+              <div>
+                <div class="card__title" style="margin-bottom:12px; font-size:14px;">Industries we've worked across</div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                  <span class="chip">Hospitality</span>
+                  <span class="chip">SaaS</span>
+                  <span class="chip">HealthTech</span>
+                  <span class="chip">Retail</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">13 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           14 — How We Work Together (Pricing)
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide">
+          <div class="slide-inner">
+            <p class="eyebrow">14 / Working Together</p>
+            <h2 class="headline headline--lg">Transparent, from the first call.</h2>
+            <div class="pricing-grid">
+              <div class="price-card">
+                <div class="price-card__title">Business Website</div>
+                <div class="price-card__from">Starting from</div>
+                <div class="price-card__price">₹60,000</div>
+              </div>
+              <div class="price-card">
+                <div class="price-card__title">Premium / Custom Website</div>
+                <div class="price-card__from">Starting from</div>
+                <div class="price-card__price">₹1,25,000</div>
+              </div>
+              <div class="price-card price-card--featured">
+                <div class="price-card__badge">Most popular</div>
+                <div class="price-card__title">Mobile App Design (MVP)</div>
+                <div class="price-card__from">Starting from</div>
+                <div class="price-card__price">₹90,000</div>
+              </div>
+              <div class="price-card">
+                <div class="price-card__title">SaaS Dashboard / Web App</div>
+                <div class="price-card__from">Starting from</div>
+                <div class="price-card__price">₹1,50,000</div>
+              </div>
+              <div class="price-card">
+                <div class="price-card__title">Care Plan (Monthly)</div>
+                <div class="price-card__from">Starting from</div>
+                <div class="price-card__price">₹8,000/mo</div>
+              </div>
+            </div>
+            <div style="margin-top:24px; display:flex; gap:48px;">
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <p style="font-size:13px; color:var(--d-text-muted);">
+                  40–50% advance, milestone-based. Final scope confirmed after a free discovery call.
+                </p>
+                <p style="font-size:13px; color:var(--d-text-muted);">
+                  Bundle example: Business Website ₹75,000 + Care Plan ₹12,000/month.
+                </p>
+              </div>
+              <div class="grid grid--2" style="gap:6px 20px; align-content:start;">
+                <div class="included-row"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"></path></svg>Free discovery call</div>
+                <div class="included-row"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"></path></svg>Design system included</div>
+                <div class="included-row"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"></path></svg>Two rounds of revisions</div>
+                <div class="included-row"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"></path></svg>Dev handoff documentation</div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">14 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           15 — Our Reach / Industries
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide slide--dark slide--photo slide--reach">
+          <div class="slide-inner">
+            <p class="eyebrow">15 / Reach</p>
+            <h2 class="headline headline--lg">We understand more than one world.</h2>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:26px; max-width:820px;">
+              {["HealthTech", "FinTech", "Education", "SaaS", "Enterprise", "Real Estate", "Retail", "Logistics", "AI", "Startups"].map((tag) => (
+                <span class="chip">{tag}</span>
+              ))}
+            </div>
+            <div style="display:flex; align-items:center; gap:18px; margin-top:44px; font-family:var(--d-font-label); font-size:14px; letter-spacing:0.02em; color:var(--d-inverse-secondary);">
+              <span>Kerala</span>
+              <span style="width:36px; height:1px; background:rgba(255,255,255,0.25);"></span>
+              <span>Pan-India</span>
+              <span style="width:36px; height:1px; background:rgba(255,255,255,0.25);"></span>
+              <span>Gulf</span>
+              <span style="width:36px; height:1px; background:rgba(255,255,255,0.25);"></span>
+              <span style="color:var(--d-inverse);">Global</span>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">15 / 16</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============================================================
+           16 — Contact / CTA
+           ============================================================ -->
+      <section class="slide-viewport">
+        <article class="slide slide--cover">
+          <div class="slide-inner" style="justify-content:center; align-items:flex-start;">
+            <p class="eyebrow">16 / Let's Talk</p>
+            <h2 class="cover-headline" style="font-size:52px; max-width:820px;">
+              Let's build something worth betting on.
+            </h2>
+            <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:28px;">
+              <a
+                class="pill-btn pill-btn--accent"
+                href="mailto:admin@uiedge.in?subject=Strategy%20call"
+                style="padding:15px 26px; font-size:14px;"
+              >
+                Book a free 30-minute strategy call
+              </a>
+              <button class="pill-btn" data-deck-download type="button" style="padding:15px 26px; font-size:14px; border:1px solid var(--d-border-inverse-strong); color:var(--d-inverse); background:transparent;">
+                <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"></path></svg>
+                Download deck (PDF)
+              </button>
+            </div>
+            <div style="display:flex; gap:22px; flex-wrap:wrap; margin-top:34px; font-family:var(--d-font-label); font-size:13px; color:var(--d-inverse-secondary);">
+              <span>admin@uiedge.in</span>
+              <span>uiedge.in</span>
+              <span>linkedin.com/company/uiedge</span>
+              <span>Instagram: uiedge.in</span>
+            </div>
+          </div>
+          <div class="footer-strip">
+            <span>uiedge.in</span>
+            <span>admin@uiedge.in</span>
+            <span class="footer-strip__num">16 / 16</span>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <!-- ============================================================
+         On-screen controls (hidden on print)
+         ============================================================ -->
+    <div class="deck-counter" data-deck-counter>01 / 16</div>
+
+    <div class="deck-controls">
+      <button class="deck-download" data-deck-download type="button">
+        <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"></path></svg>
+        Download deck (PDF)
+      </button>
+      <div class="deck-nav">
+        <button class="deck-nav__btn" data-deck-prev type="button" aria-label="Previous slide">
+          <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></svg>
+        </button>
+        <button class="deck-nav__btn" data-deck-next type="button" aria-label="Next slide">
+          <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      import { initDeck } from "../lib/deck";
+      initDeck();
+    </script>
+  </body>
+</html>

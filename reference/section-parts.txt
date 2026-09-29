@@ -1,0 +1,10 @@
+=== ADVANTAGES (texts) ===
+data-framer-name="Advantages"> | Why choose us | Proven results for every project, | with a focus on design and functionality. | Your digital journey begins with a conversation. Let's talk today. | Let's talk | Let's talk | No fluff, just results. | Thoughtful design and tools that make your work easier. We focus on smart design and useful features, project after project. | 0 | + | 01 | Successful projects completed | We’ve delivered 50+ projects that help companies generate real results. | 0 | % | 02 | Customer satisfaction rate | <section class="framer-8d5aox" 
+
+
+=== TESTIMONIALS (texts) ===
+data-framer-name="Testimonials"> | Testimonials | Experiences. | ©2025 | 4.9 | /5 | We’ve delivered | 56+ projects | that help companies generate real results. | fabrica® | 56+ | Trusted by | clients worldwide | Leave a review | Leave a review | James Carter | Wilson &amp; Co | Incredible team! They delivered exactly what we needed, on time and beyond expectations. | Emily Davis | StartUp Hub | A smooth process from start to finish. Highly professional team! | Anna Martinez | Marketing Director | Our new branding is exactly what we envisioned—clean, modern, and unique. #1 in our industry. | <section class="framer-15uz38f" 
+
+
+=== PRICING (texts) ===
+data-framer-name="Pricing"> | Simple pricing | Pricing. | Per project | Monthly | Want more traffic and leads? | Get marketing and SEO that starts with your goals. | +$1,490 | $2,490 | /project | Homepage + up to 4 inner pages | Design and Development | Mobile-Optimized Design | Delivery time | 3-4 weeks | Get in touch | Get in touch | Looking for more? | Add | marketing, | SEO, | or | content | creation— | flexible | tools | to | strengthen | your | project. | We’ll | shape | a | solution | that | fits | your | business, | not | ours. | George Stern | Client Success Manager | <section class="framer-1l4ytm4" 

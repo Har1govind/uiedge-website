@@ -1,0 +1,750 @@
+---
+/**
+ * Studio page.
+ * Section order: hero ("Studio." + About us), stats band, approach copy
+ * (same as homepage), portfolio strip, milestones table, team grid, process
+ * ("How work gets done" — UiEdge's 9-step process), "What else?" philosophy
+ * blurb, CTA.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CTASection from "../components/CTASection.astro";
+import TeamCard from "../components/TeamCard.astro";
+import Counter from "../components/atoms/Counter.astro";
+import { TEAM } from "../data/team";
+import { PROJECTS } from "../data/projects";
+
+const title = "Studio";
+const description =
+  "Design is business strategy — so our process starts with your goals, not a moodboard. Meet the UiEdge studio and our 9-step delivery process.";
+
+const STEPS = [
+  { num: "01", text: "Discovery — align on your business goals before anything else" },
+  { num: "02", text: "Research — understand your real users, not assumptions" },
+  { num: "03", text: "Strategy — decide what to build and why" },
+  { num: "04", text: "Wireframing — structure before style, so nothing gets built on a shaky foundation" },
+  { num: "05", text: "UI Design — premium, on-brand, conversion-focused interfaces" },
+  { num: "06", text: "Prototype — test the experience before a line of code is written" },
+  { num: "07", text: "Testing — validate decisions and reduce delivery risk" },
+  { num: "08", text: "Dev Handoff — clean specs so what ships matches what we designed" },
+  { num: "09", text: "Optimization — measure real usage after launch and improve it" },
+];
+
+const MILESTONES = [
+  { id: "(001)", description: "UiEdge studio founded", nomination: "Kozhikode, Kerala", year: "⟨founding year⟩" },
+  { id: "(002)", description: "Veterinary management platform launched", nomination: "UiEdge product", year: "2026" },
+  { id: "(003)", description: "POS system launched", nomination: "UiEdge product", year: "2026" },
+  { id: "(004)", description: "First client projects delivered", nomination: "Client work", year: "2025" },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="s-hero">
+    <div class="container s-hero__inner">
+      <h1 class="s-hero__title">Studio.</h1>
+      <div class="s-hero__about">
+        <p class="s-hero__eyebrow">About us</p>
+        <p class="s-hero__lead">
+          We're a strategy-first UI/UX design and digital product studio based in Kozhikode, Kerala. Design is
+          business strategy — so our process starts with your goals, not a moodboard.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container s-stats">
+    <div class="s-stats__top">
+      <div class="s-stats__trusted">
+        <span class="s-stats__trusted-value"><Counter value={9} /></span>
+        <p class="s-stats__trusted-label">Step <span>delivery process</span></p>
+      </div>
+      <p class="s-stats__note">No overcomplicated processes, just a transparent path from discovery to launch.</p>
+    </div>
+
+    <div class="s-stats__grid">
+      <div class="s-stats__stat">
+        <span class="s-stats__value"><Counter value={2} /></span>
+        <span class="s-stats__label">Client projects completed so far</span>
+      </div>
+      <div class="s-stats__stat">
+        <span class="s-stats__value"><Counter value={2} /></span>
+        <span class="s-stats__label">Software products we build and run</span>
+      </div>
+      <div class="s-stats__stat">
+        <span class="s-stats__value"><Counter value={3} /></span>
+        <span class="s-stats__label">Owners working directly on every project</span>
+      </div>
+      <div class="s-stats__stat">
+        <span class="s-stats__value"><Counter value={5} /></span>
+        <span class="s-stats__label">Weeks or less for most website projects</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container s-approach">
+    <p class="s-approach__lead">Every project we take on is designed for long-term success.</p>
+    <div class="s-approach__copy">
+      <p>
+        Our approach is simple: we start from your business goals, not a moodboard, and focus on functionality,
+        speed, and clarity, ensuring that every project serves a clear purpose without unnecessary complexity.
+      </p>
+      <p class="s-approach__muted">
+        We don’t overpromise. We build well-designed, functional products — and the software we run ourselves holds
+        us to the same standard.
+      </p>
+    </div>
+  </section>
+
+  <section class="section container s-portfolio">
+    <div class="s-portfolio__head">
+      <p class="s-portfolio__eyebrow">Portfolio</p>
+      <div class="s-portfolio__title-row">
+        <span class="s-portfolio__title">The work</span>
+        <span class="s-portfolio__period">©2026</span>
+      </div>
+    </div>
+    <div class="s-portfolio__grid">
+      {PROJECTS.map((project) => (
+        <a class="s-portfolio__item" href={`/projects/${project.slug}`}>
+          <img class="s-portfolio__logo" src={project.logo} alt={`${project.title} logo`} loading="lazy" decoding="async" />
+          <span class="s-portfolio__year">/{project.year}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section container s-awards">
+    <div class="s-awards__head">
+      <p class="s-awards__eyebrow">Our story so far</p>
+      <div class="s-awards__title-row">
+        <span class="s-awards__title">Milestones.</span>
+        <span class="s-awards__period">©2026</span>
+      </div>
+    </div>
+
+    <div class="s-awards__table" role="table" aria-label="Milestones">
+      <div class="s-awards__row s-awards__row--head" role="row">
+        <span role="columnheader">Milestone</span>
+        <span role="columnheader">Category</span>
+        <span role="columnheader">Year</span>
+      </div>
+      {MILESTONES.map((milestone) => (
+        <a class="s-awards__row" role="row" href="/studio">
+          <span class="s-awards__id" role="cell">{milestone.id}</span>
+          <span class="s-awards__desc" role="cell">{milestone.description}</span>
+          <span class="s-awards__nom" role="cell">{milestone.nomination}</span>
+          <span class="s-awards__year" role="cell">{milestone.year}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section team" id="team">
+    <div class="container team__shell">
+      <div class="team__main">
+        <div class="team__heading">
+          <p class="team__logo">Meet the team</p>
+          <h2 class="team__title">The faces behind the projects.</h2>
+        </div>
+
+        <div class="team__join">
+          <span class="team__join-icon" aria-hidden="true"></span>
+          <div class="team__join-body">
+            <p class="team__join-label">Be part of our mission</p>
+            <p class="team__join-text">If you’re ready to create and collaborate, we’d love to hear from you.</p>
+            <a class="btn btn--dark team__apply" href="mailto:admin@uiedge.in">Apply now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="team__grid">
+        {TEAM.map((member) => <TeamCard member={member} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section container s-process">
+    <p class="s-process__eyebrow">How work gets done — design is business strategy, so our process starts with your goals, not a moodboard.</p>
+    <ol class="s-process__steps">
+      {STEPS.map((step) => (
+        <li class="s-process__step">
+          <span class="s-process__step-num">{step.num}</span>
+          <span class="s-process__step-text">{step.text}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="section container s-else">
+    <p class="s-else__eyebrow">What else?</p>
+    <div class="s-else__copy">
+      <p class="s-else__lead">
+        We believe a product should be more than just an online presence—it’s a tool that works for your business.
+        That’s why we prioritize performance, user experience, and functionality in everything we create.
+      </p>
+      <p class="s-else__muted">
+        We build websites, apps, and SaaS products that are fast, efficient, and easy to manage, so you can focus on
+        what matters—running your business. It's the same standard we hold our own products to.
+      </p>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .s-hero {
+    padding-top: calc(var(--header-height) + 90px);
+    padding-bottom: var(--space-11);
+    background: var(--color-bg-black);
+  }
+
+  .s-hero__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .s-hero__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tighter);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text-inverse);
+  }
+
+  .s-hero__about {
+    display: grid;
+    grid-template-columns: 335px 1fr;
+    gap: var(--gutter);
+  }
+
+  .s-hero__eyebrow {
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+    opacity: 0.6;
+  }
+
+  .s-hero__lead {
+    font-family: var(--font-display);
+    font-size: var(--fs-h4);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    line-height: 1.4;
+    color: var(--color-text-inverse);
+    max-width: 40rem;
+  }
+
+  /* --- Stats --- */
+  .s-stats__top {
+    display: grid;
+    grid-template-columns: 335px 1fr;
+    gap: var(--gutter);
+    align-items: end;
+    margin-bottom: var(--space-10);
+  }
+
+  .s-stats__trusted {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+  }
+
+  .s-stats__trusted-value {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text);
+  }
+
+  .s-stats__trusted-label {
+    font-size: var(--fs-body);
+    color: var(--color-text);
+  }
+
+  .s-stats__trusted-label span {
+    display: block;
+    color: var(--color-text-secondary);
+  }
+
+  .s-stats__note {
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body);
+    color: var(--color-text-secondary);
+    max-width: 26rem;
+  }
+
+  .s-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gutter);
+  }
+
+  .s-stats__stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .s-stats__value {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tightest);
+    line-height: var(--lh-tighter);
+    color: var(--color-text);
+  }
+
+  .s-stats__label {
+    font-size: var(--fs-small);
+    color: var(--color-text-muted);
+    max-width: 16ch;
+  }
+
+  /* --- Approach --- */
+  .s-approach {
+    display: grid;
+    grid-template-columns: 335px 1fr;
+    gap: var(--gutter);
+  }
+
+  .s-approach__lead {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    line-height: 1.4;
+    color: var(--color-text);
+    max-width: 20ch;
+  }
+
+  .s-approach__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .s-approach__copy p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--color-text-secondary);
+    max-width: 40rem;
+  }
+
+  .s-approach__muted {
+    color: var(--color-text-muted);
+  }
+
+  /* --- Portfolio strip --- */
+  .s-portfolio__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .s-portfolio__eyebrow {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+  }
+
+  .s-portfolio__title-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+  }
+
+  .s-portfolio__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text);
+  }
+
+  .s-portfolio__period {
+    font-size: var(--fs-body);
+    color: var(--color-text-muted);
+  }
+
+  .s-portfolio__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+  }
+
+  .s-portfolio__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    background: var(--color-accent);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    min-height: 140px;
+    padding: var(--space-4);
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .s-portfolio__item:hover {
+    opacity: 0.85;
+  }
+
+  .s-portfolio__logo {
+    max-width: 70%;
+    max-height: 32px;
+    object-fit: contain;
+  }
+
+  .s-portfolio__year {
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-medium);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  /* --- Awards --- */
+  .s-awards__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .s-awards__eyebrow {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+  }
+
+  .s-awards__title-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+  }
+
+  .s-awards__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text);
+  }
+
+  .s-awards__period {
+    font-size: var(--fs-body);
+    color: var(--color-text-muted);
+  }
+
+  .s-awards__table {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .s-awards__row {
+    display: grid;
+    grid-template-columns: 100px 1fr 220px 80px;
+    gap: var(--space-5);
+    align-items: center;
+    padding-block: var(--space-5);
+    border-bottom: 1px solid var(--color-border-soft);
+    color: var(--color-text);
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  a.s-awards__row:hover {
+    opacity: 0.7;
+  }
+
+  .s-awards__row--head {
+    color: var(--color-text-muted);
+    font-size: var(--fs-label);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .s-awards__id {
+    font-size: var(--fs-small);
+    color: var(--color-text-muted);
+  }
+
+  .s-awards__desc {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+  }
+
+  .s-awards__nom {
+    font-size: var(--fs-small);
+    color: var(--color-text-secondary);
+  }
+
+  .s-awards__year {
+    font-size: var(--fs-small);
+    color: var(--color-text-muted);
+    text-align: right;
+  }
+
+  /* --- Team (shared with homepage) --- */
+  .team {
+    padding-block: 0;
+  }
+
+  .team__shell {
+    display: grid;
+    grid-template-columns: 1fr 444px;
+    gap: var(--space-6);
+    padding-block: 10px;
+    border-radius: 18px;
+    background: var(--color-accent);
+    border: 1px solid var(--color-border);
+  }
+
+  .team__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    padding: 60px var(--space-6);
+  }
+
+  .team__logo {
+    font-size: 20px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    color: var(--color-accent-ink);
+    margin-bottom: var(--space-3);
+  }
+
+  .team__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-accent-ink);
+    max-width: 14ch;
+  }
+
+  .team__join {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+    border-top: 1px solid rgba(10, 10, 10, 0.15);
+    padding-top: var(--space-6);
+  }
+
+  .team__join-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--color-accent-ink);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .team__join-icon::before,
+  .team__join-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: var(--color-accent-ink);
+  }
+
+  .team__join-icon::before {
+    width: 8px;
+    height: 1px;
+    transform: translate(-50%, -50%);
+  }
+
+  .team__join-icon::after {
+    width: 1px;
+    height: 8px;
+    transform: translate(-50%, -50%);
+  }
+
+  .team__join-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .team__join-label {
+    font-family: var(--font-display);
+    font-size: var(--fs-h4);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-accent-ink);
+  }
+
+  .team__join-text {
+    font-size: var(--fs-body);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+    max-width: 24rem;
+  }
+
+  .team__apply {
+    margin-top: var(--space-2);
+    background: var(--color-accent-ink);
+    color: var(--color-accent);
+    border: none;
+  }
+
+  .team__apply:hover,
+  .team__apply:focus-visible {
+    background: var(--color-accent-ink);
+    color: var(--color-accent);
+    opacity: 0.85;
+  }
+
+  .team__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    align-content: start;
+  }
+
+  /* --- Process --- */
+  .s-process__eyebrow {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+    margin-bottom: var(--space-8);
+  }
+
+  .s-process__steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+
+  .s-process__step {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+    padding: var(--space-7) var(--space-6);
+    border-radius: 18px;
+    background: var(--color-accent);
+    border: 1px solid var(--color-border);
+    min-height: 171px;
+  }
+
+  .s-process__step-num {
+    align-self: flex-end;
+    font-size: 10px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-accent-ink);
+    opacity: 0.5;
+  }
+
+  .s-process__step-text {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    line-height: 1.3;
+    color: var(--color-accent-ink);
+    max-width: 204px;
+  }
+
+  /* --- What else? --- */
+  .s-else__eyebrow {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+    margin-bottom: var(--space-8);
+  }
+
+  .s-else__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 46rem;
+  }
+
+  .s-else__lead {
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    line-height: 1.3;
+    color: var(--color-text);
+  }
+
+  .s-else__muted {
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body);
+    color: var(--color-text-secondary);
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 1199px) {
+    .s-hero__about,
+    .s-stats__top,
+    .s-approach {
+      grid-template-columns: 1fr;
+    }
+
+    .s-portfolio__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .s-stats__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .team__shell {
+      grid-template-columns: 1fr;
+    }
+
+    .s-awards__row {
+      grid-template-columns: 70px 1fr 160px 60px;
+    }
+  }
+
+  @media (max-width: 809px) {
+    .s-hero {
+      padding-top: calc(var(--header-height) + 40px);
+    }
+
+    .s-portfolio__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .s-stats__grid,
+    .s-process__steps,
+    .team__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .s-awards__row {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+
+    .s-awards__row--head {
+      display: none;
+    }
+
+    .s-awards__year {
+      text-align: left;
+    }
+  }
+</style>

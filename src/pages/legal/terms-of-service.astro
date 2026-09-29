@@ -1,0 +1,157 @@
+---
+/**
+ * Terms of service — [verbatim] captured from the terms of service page.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { CONTACT } from "../../data/site";
+
+const title = "Terms of service";
+const description = "The terms that govern access to and use of the UiEdge website.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="legal">
+    <div class="container legal__inner">
+      <h1 class="legal__title">Terms of service.</h1>
+      <p class="legal__updated">Last updated: Mar 4, 2025</p>
+
+      <div class="legal__body">
+        <p>
+          These Terms of Service (“Terms”) govern your access to and use of uiedge.in (the “Site”). By accessing
+          or using our Site, you agree to these Terms.
+        </p>
+
+        <h2>1. Use of the Site</h2>
+        <p>You agree to use the Site only for lawful purposes and in compliance with these Terms. You may not:</p>
+        <ul>
+          <li>Violate any applicable laws or regulations</li>
+          <li>Engage in unauthorized access or data collection (scraping, crawling, etc.)</li>
+          <li>Disrupt or interfere with the Site’s functionality</li>
+          <li>Impersonate another person or entity</li>
+        </ul>
+
+        <h2>2. Intellectual Property</h2>
+        <p>
+          All content on the Site, including text, graphics, logos, and software, is the property of UiEdge
+          Studio and is protected by copyright and trademark laws. You may not reproduce, modify, or distribute any
+          content without prior written consent.
+        </p>
+
+        <h2>3. Service Availability</h2>
+        <p>
+          We strive to keep our Site accessible but do not guarantee uninterrupted service. We reserve the right to
+          modify or discontinue any part of the Site at any time without notice.
+        </p>
+
+        <h2>4. Limitation of Liability</h2>
+        <p>
+          To the fullest extent permitted by law, UiEdge is not liable for any damages arising from your
+          use of the Site, including but not limited to:
+        </p>
+        <ul>
+          <li>Loss of data or business opportunities</li>
+          <li>Service interruptions or security breaches</li>
+          <li>Third-party actions beyond our control</li>
+        </ul>
+
+        <h2>5. Third-Party Services</h2>
+        <p>
+          Our Site may include links to third-party services. We do not endorse or take responsibility for these
+          external sites or their content.
+        </p>
+
+        <h2>6. Indemnification</h2>
+        <p>
+          You agree to indemnify and hold harmless UiEdge, its affiliates, and employees from any claims,
+          damages, or expenses arising from your violation of these Terms.
+        </p>
+
+        <h2>7. Governing Law</h2>
+        <p>
+          These Terms are governed by and construed in accordance with the laws of the United States. Any disputes
+          shall be resolved in the appropriate courts.
+        </p>
+
+        <h2>8. Changes to These Terms</h2>
+        <p>
+          We reserve the right to modify these Terms at any time. Continued use of the Site after changes are
+          posted constitutes acceptance of the updated Terms.
+        </p>
+
+        <h2>9. Contact Us</h2>
+        <p>If you have any questions about these Terms, contact us at:</p>
+        <p>
+          UiEdge<br />
+          <a href={CONTACT.email.href}>{CONTACT.email.label}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal {
+    padding-top: calc(var(--header-height) + 90px);
+    padding-bottom: var(--section-pad);
+  }
+
+  .legal__inner {
+    max-width: 46rem;
+  }
+
+  .legal__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text);
+  }
+
+  .legal__updated {
+    margin-top: var(--space-4);
+    font-size: var(--fs-small);
+    color: var(--color-text-muted);
+  }
+
+  .legal__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    margin-top: var(--space-10);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--color-text-secondary);
+  }
+
+  .legal__body h2 {
+    margin-top: var(--space-4);
+    font-size: var(--fs-h4);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text);
+  }
+
+  .legal__body ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-left: var(--space-6);
+    list-style: disc;
+  }
+
+  .legal__body a {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .legal__body a:hover {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 809px) {
+    .legal {
+      padding-top: calc(var(--header-height) + 40px);
+    }
+  }
+</style>

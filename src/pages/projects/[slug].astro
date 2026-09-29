@@ -1,0 +1,364 @@
+---
+/**
+ * Project detail page.
+ * Reuses one generic, honest case-study body across every project — see
+ * PROJECT_CASE_STUDY in data/projects.ts.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CTASection from "../../components/CTASection.astro";
+import { PROJECTS, PROJECT_CASE_STUDY } from "../../data/projects";
+
+export function getStaticPaths() {
+  return PROJECTS.map((project, index) => ({
+    params: { slug: project.slug },
+    props: { project, index },
+  }));
+}
+
+const { project, index } = Astro.props;
+const nextProjects = [PROJECTS[(index + 1) % PROJECTS.length], PROJECTS[(index + 2) % PROJECTS.length]];
+
+const title = project.title;
+const description = PROJECT_CASE_STUDY.introduction;
+const cs = PROJECT_CASE_STUDY;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="project-hero">
+    <div class="container project-hero__inner">
+      <h1 class="project-hero__title">{project.title}.</h1>
+    </div>
+  </section>
+
+  <section class="section container project-media">
+    <img
+      class="project-media__image"
+      src={project.image}
+      alt={`${project.title} project preview`}
+      width="1520"
+      height="930"
+      loading="eager"
+      decoding="async"
+    />
+  </section>
+
+  <section class="section container project-meta">
+    <div class="project-meta__intro">
+      <p class="project-meta__eyebrow">Introduction</p>
+      <p class="project-meta__text">{cs.introduction}</p>
+    </div>
+
+    <dl class="project-meta__facts">
+      <div class="project-meta__fact">
+        <dt>Year</dt>
+        <dd>{project.year}</dd>
+      </div>
+      <div class="project-meta__fact">
+        <dt>Industry</dt>
+        <dd>{project.industry}</dd>
+      </div>
+      <div class="project-meta__fact">
+        <dt>Scope of work</dt>
+        <dd>
+          <ul class="project-meta__scope">
+            {project.scope.map((s) => <li>{s}</li>)}
+          </ul>
+        </dd>
+      </div>
+      <div class="project-meta__fact">
+        <dt>Timeline</dt>
+        <dd>{project.timeline}</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="section container project-challenges">
+    <p class="project-challenges__eyebrow">Challenges</p>
+    <p class="project-challenges__text">{cs.challenges}</p>
+    <p class="project-challenges__text">{cs.development}</p>
+    <a class="btn btn--dark project-challenges__live" href={cs.liveProjectHref} target="_blank" rel="noopener noreferrer">
+      Live Project
+    </a>
+  </section>
+
+  <section class="section container project-gallery">
+    {cs.gallery.map((src) => (
+      <img class="project-gallery__image" src={src} alt={`${project.title} gallery`} width="1520" height="930" loading="lazy" decoding="async" />
+    ))}
+  </section>
+
+  <section class="section container project-final">
+    <p class="project-final__eyebrow">Final thoughts</p>
+    <div class="project-final__copy">
+      {cs.finalThoughts.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </section>
+
+  <section class="section container project-next">
+    <div class="project-next__top">
+      <h2 class="project-next__title">Next projects.</h2>
+      <a class="btn btn--dark project-next__all" href="/projects">All projects <span aria-hidden="true">©2026</span></a>
+    </div>
+    <div class="project-next__grid">
+      {nextProjects.map((p) => (
+        <a class="project-next__card" href={`/projects/${p.slug}`}>
+          <img src={p.image} alt={`${p.title} project preview`} width="750" height="540" loading="lazy" decoding="async" />
+          <div class="project-next__meta">
+            <span class="project-next__name">{p.title}.</span>
+            <span class="project-next__year">/{p.year}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .project-hero {
+    padding-top: calc(var(--header-height) + 90px);
+    padding-bottom: var(--space-9);
+    background: var(--color-bg-black);
+  }
+
+  .project-hero__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tighter);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text-inverse);
+  }
+
+  .project-media__image {
+    width: 100%;
+    aspect-ratio: 1520 / 930;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  /* --- Meta --- */
+  .project-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gutter);
+  }
+
+  .project-meta__eyebrow,
+  .project-challenges__eyebrow,
+  .project-final__eyebrow {
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+    opacity: 0.6;
+    margin-bottom: var(--space-4);
+  }
+
+  .project-meta__text {
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body);
+    color: var(--color-text-secondary);
+    max-width: 34rem;
+  }
+
+  .project-meta__facts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .project-meta__fact {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .project-meta__fact dt {
+    font-size: var(--fs-small);
+    color: var(--color-text-muted);
+  }
+
+  .project-meta__fact dd {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text);
+    text-align: right;
+  }
+
+  .project-meta__scope {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+
+  .project-meta__scope li {
+    display: inline-flex;
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border-strong);
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-semibold);
+  }
+
+  /* --- Challenges --- */
+  .project-challenges__text {
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body);
+    color: var(--color-text-secondary);
+    max-width: 46rem;
+    margin-bottom: var(--space-5);
+  }
+
+  .project-challenges__live {
+    margin-top: var(--space-4);
+    font-size: var(--fs-body);
+    padding: var(--space-3) var(--space-7);
+  }
+
+  /* --- Gallery --- */
+  .project-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  .project-gallery__image {
+    width: 100%;
+    aspect-ratio: 750 / 540;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  .project-gallery__image:first-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 1520 / 930;
+  }
+
+  /* --- Final thoughts --- */
+  .project-final__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 46rem;
+  }
+
+  .project-final__copy p {
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body);
+    color: var(--color-text-secondary);
+  }
+
+  /* --- Next projects --- */
+  .project-next__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .project-next__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text);
+  }
+
+  .project-next__all {
+    font-size: var(--fs-body);
+    padding: var(--space-3) var(--space-6);
+  }
+
+  .project-next__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  .project-next__card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .project-next__card img {
+    width: 100%;
+    aspect-ratio: 750 / 540;
+    object-fit: cover;
+    border-radius: 18px;
+  }
+
+  .project-next__meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    height: 58px;
+    padding: 18px 24px;
+    border-radius: 18px;
+    background: var(--color-accent);
+    border: 1px solid var(--color-border);
+  }
+
+  .project-next__name {
+    font-size: 15px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    color: var(--color-accent-ink);
+  }
+
+  .project-next__year {
+    font-size: 12px;
+    font-weight: var(--fw-medium);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  @media (max-width: 1199px) {
+    .project-meta {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 809px) {
+    .project-hero {
+      padding-top: calc(var(--header-height) + 40px);
+    }
+
+    .project-gallery,
+    .project-next__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .project-gallery__image:first-child {
+      grid-column: 1;
+    }
+
+    .project-next__top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+
+    .project-meta__fact {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+
+    .project-meta__fact dd,
+    .project-meta__scope {
+      text-align: left;
+      justify-content: flex-start;
+    }
+  }
+</style>

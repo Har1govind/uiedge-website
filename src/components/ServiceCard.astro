@@ -1,0 +1,179 @@
+---
+/**
+ * ServiceCard — numbered service row.
+ * [measured] White card radius 18px; number "(001)" 14px/500;
+ * title Inter 500 28px; description 14px/500 opacity .6;
+ * category pills: WHITE bg + near-black text, radius 50px, 12px/600;
+ * count badge "6+" bg rgb(39,39,39) white text, radius 50px.
+ */
+import type { Service } from "../data/services";
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+---
+
+<article class="service">
+  <div class="service__top">
+    <span class="service__number">{service.number}</span>
+    <span class="service__arrow" aria-hidden="true"></span>
+  </div>
+
+  <div class="service__main">
+    <h3 class="service__title">{service.title}</h3>
+    <p class="service__description">{service.description}</p>
+
+    <div class="service__categories">
+      <span class="service__categories-label">Categories</span>
+      <ul class="service__chips">
+        {service.categories.map((category) => (
+          <li class="service__chip">{category}</li>
+        ))}
+      </ul>
+      <span class="service__count">{service.count}</span>
+    </div>
+  </div>
+</article>
+
+<style>
+  /* [measured] white card, radius 18px */
+  .service {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+    border-radius: 18px;
+    background: var(--color-accent);
+    border: 1px solid var(--color-border);
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .service:hover {
+    transform: translateY(-3px);
+  }
+
+  .service__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* [measured] number Inter 500 14px */
+  .service__number {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  /* circular arrow indicator — border + rotated bar */
+  .service__arrow {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--color-accent-ink);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  .service__arrow::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 2px;
+    background: var(--color-accent-ink);
+    transform: translate(-70%, -50%) rotate(45deg);
+  }
+
+  .service__main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  /* [measured] title Inter 500 28px, lh 120% */
+  .service__title {
+    font-family: var(--font-body);
+    font-size: 28px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    line-height: 1.2;
+    color: var(--color-accent-ink);
+  }
+
+  /* [measured] description 14px/500, opacity .6 */
+  .service__description {
+    font-size: 14px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    line-height: 1.4;
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  .service__categories {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  /* [measured] label Inter 500 11px */
+  .service__categories-label {
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  .service__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* [measured] pills: white bg (on white card → border distinguish),
+     radius 50px, Inter 600 12px */
+  .service__chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 12px;
+    border-radius: 50px;
+    border: 1px solid rgba(10, 10, 10, 0.15);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    line-height: 1;
+    color: var(--color-accent-ink);
+  }
+
+  /* [measured] count badge: bg rgb(39,39,39), white text, radius 50px */
+  .service__count {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    border-radius: 50px;
+    background: rgb(39, 39, 39);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+  }
+
+  @media (max-width: 809px) {
+    .service__title {
+      font-size: 24px;
+    }
+  }
+</style>

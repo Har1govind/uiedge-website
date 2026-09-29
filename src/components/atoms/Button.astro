@@ -1,0 +1,46 @@
+---
+/**
+ * Button — pill CTA [measured: radius 50px, Inter 600 12px, -0.04em, lh 100%].
+ *
+ * Variants:
+ *  - "accent"  white pill, near-black text  (service pills, "Apply now")
+ *  - "dark"    near-black pill, white text  ("Let's talk" on light cards)
+ *  - "outline" hairline border, inherits text color
+ *
+ * Renders an <a> when `href` is set, otherwise a <button>.
+ * Pass extra classes through `class:list`.
+ */
+interface Props {
+  href?: string;
+  variant?: "accent" | "dark" | "outline";
+  type?: "button" | "submit";
+  /** Add `disabled` state + no-op click for <button>. */
+  disabled?: boolean;
+  class?: string;
+  "aria-label"?: string;
+}
+
+const {
+  href,
+  variant = "accent",
+  type = "button",
+  disabled = false,
+  class: className = "",
+  "aria-label": ariaLabel,
+} = Astro.props;
+
+const variantClass = `btn--${variant}`;
+const classes = `btn ${variantClass} ${className}`.trim();
+---
+
+{
+  href ? (
+    <a href={href} class={classes} aria-label={ariaLabel}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes} disabled={disabled} aria-label={ariaLabel}>
+      <slot />
+    </button>
+  )
+}

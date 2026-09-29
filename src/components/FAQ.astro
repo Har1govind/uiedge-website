@@ -1,0 +1,196 @@
+---
+/**
+ * FAQ — accordion of questions/answers.
+ * [measured live] Two-column: "FAQ." + intro on the left (335px),
+ * accordion items on the right as white cards (radius 14px,
+ * question 18px/500, answer 15px/500 rgba(10,10,10,.6)).
+ */
+import { FAQ_ITEMS } from "../data/faq";
+---
+
+<section class="faq" id="faq">
+  <div class="container faq__grid">
+    <div class="faq__heading">
+      <h2 class="faq__title">FAQ.</h2>
+      <p class="faq__intro">
+        Got questions? We’ve got answers. Here’s everything you need to know about working with us.
+      </p>
+    </div>
+
+    <div class="faq__list" data-faq>
+      {FAQ_ITEMS.map((item, index) => (
+        <div class="faq__item">
+          <h3 class="faq__q">
+            <button
+              class="faq__trigger"
+              type="button"
+              aria-expanded={index === 0 ? "true" : "false"}
+              aria-controls={`faq-panel-${index}`}
+              id={`faq-button-${index}`}
+            >
+              <span>{item.question}</span>
+              <span class="faq__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </span>
+            </button>
+          </h3>
+          <div class="faq__answer" id={`faq-panel-${index}`} role="region" aria-labelledby={`faq-button-${index}`} hidden={index !== 0}>
+            <p>{item.answer}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding-block: 0;
+    background: var(--color-bg);
+  }
+
+  .faq__grid {
+    display: grid;
+    grid-template-columns: 335px 1fr;
+    gap: var(--gutter);
+    align-items: start;
+  }
+
+  .faq__heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .faq__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tighter);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-text);
+  }
+
+  .faq__intro {
+    max-width: 22rem;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--color-text-secondary);
+  }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .faq__item {
+    border-radius: 14px;
+    background: var(--color-accent);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  .faq__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    width: 100%;
+    padding: var(--space-6);
+    text-align: left;
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-accent-ink);
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .faq__trigger:hover,
+  .faq__trigger:focus-visible {
+    opacity: 0.7;
+  }
+
+  .faq__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-accent-ink);
+    color: var(--color-accent);
+    flex-shrink: 0;
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .faq__trigger[aria-expanded="true"] .faq__icon {
+    transform: rotate(45deg);
+  }
+
+  .faq__answer {
+    padding: 0 var(--space-6) var(--space-6);
+    max-width: 40rem;
+    font-size: 15px;
+    font-weight: var(--fw-medium);
+    line-height: 1.4;
+    letter-spacing: var(--ls-display);
+    color: rgba(10, 10, 10, 0.6);
+  }
+
+  @media (max-width: 1199px) {
+    .faq__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .faq__title {
+      font-size: var(--fs-h1);
+    }
+  }
+
+  @media (max-width: 809px) {
+    .faq__title {
+      font-size: var(--fs-h2);
+    }
+
+    .faq__trigger {
+      font-size: var(--fs-body-lg);
+    }
+  }
+</style>
+
+<script>
+  const list = document.querySelector("[data-faq]");
+  if (list) {
+    const items = Array.from(list.querySelectorAll<HTMLElement>(".faq__item"));
+
+    const closeItem = (item: HTMLElement) => {
+      const trigger = item.querySelector<HTMLButtonElement>(".faq__trigger");
+      const panel = item.querySelector<HTMLElement>(".faq__answer");
+      if (trigger) trigger.setAttribute("aria-expanded", "false");
+      if (panel) panel.hidden = true;
+    };
+
+    items.forEach((item) => {
+      const trigger = item.querySelector<HTMLButtonElement>(".faq__trigger");
+      const panel = item.querySelector<HTMLElement>(".faq__answer");
+      if (!trigger || !panel) return;
+
+      trigger.addEventListener("click", () => {
+        const isOpen = trigger.getAttribute("aria-expanded") === "true";
+        // Close siblings (single-open accordion)
+        items.forEach((other) => {
+          if (other !== item) closeItem(other);
+        });
+        if (isOpen) {
+          closeItem(item);
+        } else {
+          trigger.setAttribute("aria-expanded", "true");
+          panel.hidden = false;
+        }
+      });
+    });
+  }
+</script>

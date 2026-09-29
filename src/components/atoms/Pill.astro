@@ -1,0 +1,49 @@
+---
+/**
+ * Pill — small rounded tag.
+ *
+ * [measured] Service category pills: white bg, rgb(9,9,9) text,
+ * radius 50px, Inter 600 12px, -0.04em, lh 100%.
+ *
+ * Variants:
+ *  - "light"   white bg + dark text (service categories, "6+" inverse)
+ *  - "outline" hairline border, inherits text color (hero keyword pills)
+ */
+interface Props {
+  variant?: "light" | "outline";
+  class?: string;
+}
+
+const { variant = "light", class: className = "" } = Astro.props;
+const variantClass = `pill--${variant}`;
+const classes = `pill ${variantClass} ${className}`.trim();
+---
+
+<span class={classes}>
+  <slot />
+</span>
+
+<style>
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: var(--fs-label);
+    font-weight: var(--fw-semibold);
+    line-height: 1;
+    letter-spacing: var(--ls-display);
+  }
+
+  .pill--light {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  .pill--outline {
+    background: transparent;
+    border: var(--border-w) solid var(--color-border-soft);
+  }
+</style>

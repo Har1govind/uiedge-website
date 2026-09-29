@@ -1,0 +1,376 @@
+---
+/**
+ * CaseStudy — "Bento" case study band.
+ * [measured live] Left dark tile (Case study / UX/UI Redesign, Frontend
+ * Optimization. / UiEdge / Live website). Right column: white tile with
+ * "From branding to web development and marketing — We do it all." + metrics
+ * + quote; white tile with 100 Pagespeed score; white tile with quarterly
+ * visits chart.
+ */
+import Counter from "./atoms/Counter.astro";
+
+const CHART = [
+  { month: "Dec", value: 1.0 },
+  { month: "Jan", value: 1.3 },
+  { month: "Feb", value: 1.5 },
+  { month: "Feb", value: 2.3 },
+  { month: "Mar", value: 5.9 },
+];
+const CHART_MAX = 6;
+---
+
+<section class="case">
+  <div class="container case__grid">
+    <div class="case__tile case__tile--dark">
+      <div class="case__tile-top">
+        <div>
+          <p class="case__label">Case study</p>
+          <p class="case__label-sub">UX/UI Redesign, Frontend Optimization.</p>
+        </div>
+        <span class="case__plus" aria-hidden="true"></span>
+      </div>
+
+      <p class="case__logo">UiEdge</p>
+
+      <div class="case__tile-bottom">
+        <div class="case__tile-copy">
+          <p class="case__headline">From branding to web development and marketing — We do it all.</p>
+          <p class="case__tagline">Performance Boost.</p>
+        </div>
+        <a class="case__live" href="/projects/ephemeral" target="_blank" rel="noopener noreferrer">Live website ↗</a>
+      </div>
+    </div>
+
+    <div class="case__tile case__tile--white">
+      <div class="case__metrics">
+        <div class="case__metric">
+          <span class="case__metric-label">Performance Boost:</span>
+          <span class="case__metric-value">⟨Page speed / bounce rate change⟩</span>
+        </div>
+        <div class="case__metric">
+          <span class="case__metric-label">Conversion Rate Improvement:</span>
+          <span class="case__metric-value">⟨Before → after⟩</span>
+        </div>
+      </div>
+
+      <blockquote class="case__quote">
+        “⟨Real client quote — collect after project 1⟩”
+        <footer class="case__quote-author">⟨Client name⟩</footer>
+      </blockquote>
+    </div>
+
+    <div class="case__tile case__tile--white">
+      <div class="case__score">
+        <span class="case__score-value"><Counter value={9} /></span>
+        <p class="case__score-title">Step delivery process</p>
+        <p class="case__score-note">We prioritize performance without sacrificing visual appeal or functionality.</p>
+      </div>
+    </div>
+
+    <div class="case__tile case__tile--white case__tile--chart">
+      <div class="case__chart-head">
+        <span class="case__chart-title">Quarterly visits</span>
+        <span class="case__chart-total">⟨Growth %⟩</span>
+      </div>
+      <div class="case__bars" role="img" aria-label="Quarterly visits chart showing growth from December to March">
+        {
+          CHART.map((point) => (
+            <div class="case__bar-col">
+              <div class="case__bar" style={`height: ${(point.value / CHART_MAX) * 100}%`}></div>
+              <span class="case__bar-label">{point.month}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .case {
+    padding-block: 0;
+    background: var(--color-bg);
+  }
+
+  .case__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+  }
+
+  .case__tile {
+    border-radius: 18px;
+    overflow: hidden;
+    min-height: 300px;
+    padding: var(--space-7);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  .case__tile--dark {
+    background: var(--color-bg-black);
+    grid-row: span 2;
+    min-height: 604px;
+  }
+
+  .case__tile--white {
+    background: var(--color-accent);
+    border: 1px solid var(--color-border);
+  }
+
+  .case__tile--chart {
+    justify-content: flex-start;
+  }
+
+  /* Dark tile */
+  .case__tile-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .case__label {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+  }
+
+  .case__label-sub {
+    margin-top: var(--space-1);
+    font-size: var(--fs-label);
+    color: var(--color-text-inverse-muted);
+  }
+
+  .case__plus {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--color-text-inverse);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .case__plus::before,
+  .case__plus::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: var(--color-text-inverse);
+  }
+
+  .case__plus::before {
+    width: 8px;
+    height: 1px;
+    transform: translate(-50%, -50%);
+  }
+
+  .case__plus::after {
+    width: 1px;
+    height: 8px;
+    transform: translate(-50%, -50%);
+  }
+
+  .case__logo {
+    font-size: 20px;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+  }
+
+  .case__tile-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .case__headline {
+    font-family: var(--font-display);
+    font-size: var(--fs-h4);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    line-height: 1.2;
+    color: var(--color-text-inverse);
+    max-width: 22ch;
+  }
+
+  .case__tagline {
+    font-size: var(--fs-label);
+    color: var(--color-text-inverse-muted);
+  }
+
+  .case__live {
+    font-size: var(--fs-label);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+    border-bottom: 1px solid var(--color-text-inverse);
+    padding-bottom: 2px;
+    width: fit-content;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .case__live:hover {
+    color: var(--color-text-inverse);
+    opacity: 0.7;
+  }
+
+  /* White tiles */
+  .case__metrics {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .case__metric {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-block: var(--space-4);
+    border-top: 1px solid rgba(10, 10, 10, 0.15);
+  }
+
+  .case__metric-label {
+    font-size: var(--fs-label);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  .case__metric-value {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-accent-ink);
+  }
+
+  .case__quote {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--ls-display);
+    color: var(--color-accent-ink);
+  }
+
+  .case__quote-author {
+    font-family: var(--font-body);
+    font-size: var(--fs-label);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  .case__score {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+
+  .case__score-value {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tighter);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-accent-ink);
+  }
+
+  .case__score-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-accent-ink);
+  }
+
+  .case__score-note {
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  .case__chart-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-5);
+  }
+
+  .case__chart-title {
+    font-size: var(--fs-label);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  .case__chart-total {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    color: var(--color-accent-ink);
+  }
+
+  .case__bars {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-3);
+    height: 120px;
+  }
+
+  .case__bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    height: 100%;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .case__bar {
+    width: 100%;
+    min-height: 8px;
+    border-radius: 6px 6px 2px 2px;
+    background: var(--color-accent-ink);
+    opacity: 0.8;
+  }
+
+  .case__bar-label {
+    font-size: var(--fs-caption);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  @media (max-width: 1199px) {
+    .case__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .case__tile--dark {
+      grid-row: span 2;
+      min-height: 400px;
+    }
+  }
+
+  @media (max-width: 809px) {
+    .case__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .case__tile--dark {
+      grid-row: auto;
+      min-height: 320px;
+    }
+
+    .case__headline {
+      font-size: var(--fs-h5);
+    }
+  }
+</style>

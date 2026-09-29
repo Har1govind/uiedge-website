@@ -1,0 +1,57 @@
+---
+/**
+ * FitText — scales text to fill the container width (Framer `fit-text`).
+ *
+ * [measured] Hero wordmark "UiEdge": Inter SemiBold, -0.06em,
+ * line-height 120%, fit to container (desktop ~201px).
+ *
+ * Props:
+ *  - minScale / maxScale: clamp on the computed scale (default 0.1–1)
+ *  - class: forwarded to the wrapper
+ */
+interface Props {
+  minScale?: number;
+  maxScale?: number;
+  class?: string;
+  "aria-label"?: string;
+}
+
+const { minScale = 0.1, maxScale = 1, class: className = "", "aria-label": ariaLabel } = Astro.props;
+const classes = `fit-text ${className}`.trim();
+---
+
+<div
+  class={classes}
+  data-fit-text-wrapper
+  data-min-scale={minScale}
+  data-max-scale={maxScale}
+  aria-label={ariaLabel ?? undefined}
+>
+  <span class="fit-text__inner" data-fit-text aria-hidden={ariaLabel ? "true" : undefined}>
+    <slot />
+  </span>
+</div>
+
+<style>
+  .fit-text {
+    width: 100%;
+    white-space: nowrap;
+  }
+
+  .fit-text__inner {
+    display: inline-block;
+    transform-origin: left center;
+    will-change: transform;
+  }
+</style>
+
+<script>
+  import { fitText } from "../../lib/fitText";
+
+  document.querySelectorAll<HTMLElement>("[data-fit-text-wrapper]").forEach((el) => {
+    fitText(el, {
+      minScale: Number(el.dataset.minScale ?? 0.1),
+      maxScale: Number(el.dataset.maxScale ?? 1),
+    });
+  });
+</script>

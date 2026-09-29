@@ -1,0 +1,307 @@
+---
+/**
+ * PricingCard — homepage pricing.
+ * Toggle "Per project / Monthly", "₹1,25,000 /project", features list,
+ * "Book a strategy call", then a "Looking for more?" row with copy +
+ * founder placeholder card.
+ */
+import { CTA } from "../data/site";
+
+const FEATURES = [
+  "Custom UX & design",
+  "Website design and development",
+  "Animations & integrations",
+  "Speed-optimized build",
+];
+---
+
+<div class="pricing">
+  <div class="pricing__table">
+    <div class="pricing__top" role="group" aria-label="Billing period">
+      <div class="pricing__toggle" aria-hidden="true"></div>
+      <div class="pricing__option">
+        <button class="pricing__toggle-btn is-active" type="button" aria-pressed="true">Per project</button>
+        <button class="pricing__toggle-btn" type="button" aria-pressed="false">Monthly</button>
+      </div>
+    </div>
+
+    <article class="pricing__card">
+      <p class="pricing__addon">
+        Want more traffic and leads?<br />
+        Ask about our SEO and Care Plan add-ons.
+      </p>
+
+      <div class="pricing__price">
+        <span class="pricing__amount">₹1,25,000</span>
+        <span class="pricing__period">/project</span>
+      </div>
+
+      <ul class="pricing__features">
+        {FEATURES.map((feature) => (
+          <li class="pricing__feature">
+            <span class="pricing__check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            </span>
+            {feature}
+          </li>
+        ))}
+      </ul>
+
+      <a class="btn btn--accent pricing__cta" href={CTA.href}>{CTA.label}</a>
+    </article>
+  </div>
+
+  <div class="pricing__quote">
+    <div class="pricing__quote-label">
+      <p class="pricing__quote-title">Looking for more?</p>
+    </div>
+    <div class="pricing__quote-copy">
+      <p class="pricing__quote-text">
+        This is our <strong>Premium Website</strong> tier. We also offer a Business Website from ₹60,000, a Mobile App MVP from ₹90,000, a SaaS Dashboard from ₹1,50,000, a Care Plan from ₹8,000/mo, and a Design Retainer from ₹30,000/mo — typically 40–50% advance, milestone-based, with final scope set after a free discovery call.
+      </p>
+      <div class="pricing__manager">
+        <img
+          class="pricing__manager-photo"
+          src="/images/small-84x85.jpg"
+          alt="Portrait of the founder at UiEdge"
+          width="84"
+          height="85"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="pricing__manager-meta">
+          <p class="pricing__manager-name">⟨Founder name⟩</p>
+          <p class="pricing__manager-role">Founder at UiEdge · admin@uiedge.in</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const toggle = document.querySelector<HTMLElement>(".pricing__option");
+  if (toggle) {
+    toggle.querySelectorAll<HTMLButtonElement>(".pricing__toggle-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        toggle.querySelectorAll<HTMLButtonElement>(".pricing__toggle-btn").forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle("is-active", active);
+          b.setAttribute("aria-pressed", String(active));
+        });
+      });
+    });
+  }
+</script>
+
+<style>
+  .pricing {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+
+  /* --- Table --- */
+  .pricing__table {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .pricing__top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .pricing__toggle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--color-text-inverse);
+  }
+
+  .pricing__option {
+    display: inline-flex;
+    padding: 4px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.04);
+    gap: 4px;
+  }
+
+  .pricing__toggle-btn {
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-label);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out);
+  }
+
+  .pricing__toggle-btn.is-active {
+    background: var(--color-text-inverse);
+    color: var(--color-bg-black);
+  }
+
+  .pricing__toggle-btn:hover {
+    opacity: 0.8;
+  }
+
+  .pricing__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+    width: min(100%, 560px);
+    padding: var(--space-8);
+    border-radius: 18px;
+    background: var(--color-accent);
+  }
+
+  .pricing__addon {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  .pricing__price {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .pricing__plus {
+    font-size: var(--fs-label);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  .pricing__amount {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tighter);
+    letter-spacing: var(--ls-tightest);
+    color: var(--color-accent-ink);
+  }
+
+  .pricing__period {
+    font-size: var(--fs-h5);
+    color: var(--color-accent-ink);
+    opacity: 0.6;
+  }
+
+  .pricing__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .pricing__feature {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--fs-body);
+    color: var(--color-accent-ink);
+  }
+
+  .pricing__check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-accent-ink);
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .pricing__cta {
+    margin-top: var(--space-2);
+    font-size: var(--fs-body);
+    padding: var(--space-3) var(--space-7);
+  }
+
+  /* --- Quote --- */
+  .pricing__quote {
+    display: grid;
+    grid-template-columns: 335px 1fr;
+    gap: var(--gutter);
+    padding-top: var(--space-10);
+    border-top: 1px solid var(--color-border-inverse);
+  }
+
+  .pricing__quote-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    color: var(--color-text-inverse);
+  }
+
+  .pricing__quote-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .pricing__quote-text {
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    line-height: 1.3;
+    color: var(--color-text-inverse);
+    max-width: 44rem;
+  }
+
+  .pricing__quote-text strong {
+    font-weight: var(--fw-semibold);
+  }
+
+  .pricing__manager {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .pricing__manager-photo {
+    width: 84px;
+    height: 85px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .pricing__manager-name {
+    font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
+    color: var(--color-text-inverse);
+  }
+
+  .pricing__manager-role {
+    font-size: var(--fs-label);
+    color: var(--color-text-inverse-muted);
+  }
+
+  @media (max-width: 809px) {
+    .pricing__amount {
+      font-size: var(--fs-h1);
+    }
+
+    .pricing__quote {
+      grid-template-columns: 1fr;
+    }
+
+    .pricing__quote-text {
+      font-size: var(--fs-h4);
+    }
+  }
+</style>
