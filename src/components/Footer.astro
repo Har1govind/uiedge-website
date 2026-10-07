@@ -1,7 +1,7 @@
 ---
 /**
  * Footer — global footer.
- * Top: newsletter intro copy + founder placeholder card + Newsletter form
+ * Top: newsletter intro copy + founder card + Newsletter form
  * (Name/Email/Subscribe). Links: email, Navigation (Home/Studio/Projects/
  * Blog), Social (LinkedIn/Instagram). Giant logo mark.
  * Bottom: © 2026 … · Privacy Policy · Terms of Service.
@@ -21,17 +21,8 @@ import { SITE, CONTACT, SOCIALS, LEGAL_LINKS, FOOTER_NAV } from "../data/site";
       </p>
 
       <div class="site-footer__manager">
-        <img
-          class="site-footer__manager-photo"
-          src="/images/small-84x85.jpg"
-          alt="Portrait of the founder at UiEdge"
-          width="84"
-          height="85"
-          loading="lazy"
-          decoding="async"
-        />
         <div class="site-footer__manager-meta">
-          <p class="site-footer__manager-name">⟨Founder name⟩</p>
+          <p class="site-footer__manager-name">Hari</p>
           <p class="site-footer__manager-role">Founder &amp; CEO at UiEdge</p>
         </div>
       </div>
@@ -151,13 +142,6 @@ import { SITE, CONTACT, SOCIALS, LEGAL_LINKS, FOOTER_NAV } from "../data/site";
     display: flex;
     align-items: center;
     gap: var(--space-4);
-  }
-
-  .site-footer__manager-photo {
-    width: 84px;
-    height: 85px;
-    border-radius: 50%;
-    object-fit: cover;
   }
 
   .site-footer__manager-name {

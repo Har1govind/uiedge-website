@@ -1,22 +1,22 @@
 /**
  * Team section.
  * UiEdge is a small Kozhikode software company — 3 owners plus a salaried
- * team. Real names aren't supplied yet, so roles are shown with bracketed
- * placeholders. Photos reuse existing template paths as placeholders.
+ * team. Co-founder names aren't supplied yet, so they're shown as bracketed
+ * placeholders, with template photos standing in for real ones.
  */
 export interface TeamMember {
   name: string;
   role: string;
   bio: string;
-  photo: string;
+  /** Optional — cards without a photo show the member's initial instead. */
+  photo?: string;
 }
 
 export const TEAM: TeamMember[] = [
   {
-    name: "⟨Founder name⟩",
+    name: "Hari",
     role: "Founder & CEO at UiEdge",
     bio: "Leads company strategy and client partnerships, keeping every engagement tied to measurable business outcomes.",
-    photo: "/images/team/team-1.jpg",
   },
   {
     name: "⟨Co-founder name⟩",

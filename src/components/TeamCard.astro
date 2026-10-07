@@ -2,7 +2,8 @@
 /**
  * TeamCard — compact team member card.
  * [measured live] 220x358 card: photo fills the card, name (Inter 600 15px)
- * + role overlaid near the bottom.
+ * + role overlaid near the bottom. Without a photo, a dark card shows the
+ * member's initial instead.
  */
 import type { TeamMember } from "../data/team";
 
@@ -13,18 +14,26 @@ interface Props {
 const { member } = Astro.props;
 ---
 
-<article class="team-card">
-  <div class="team-card__media">
-    <img
-      src={member.photo}
-      alt={`Portrait of ${member.name}`}
-      width="220"
-      height="358"
-      loading="lazy"
-      decoding="async"
-    />
-  </div>
-  <div class="team-card__scrim" aria-hidden="true"></div>
+<article class:list={["team-card", { "team-card--no-photo": !member.photo }]}>
+  {
+    member.photo ? (
+      <>
+        <div class="team-card__media">
+          <img
+            src={member.photo}
+            alt={`Portrait of ${member.name}`}
+            width="220"
+            height="358"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="team-card__scrim" aria-hidden="true" />
+      </>
+    ) : (
+      <span class="team-card__initial" aria-hidden="true">{member.name.charAt(0)}</span>
+    )
+  }
   <div class="team-card__body">
     <p class="team-card__name">{member.name}</p>
     <p class="team-card__role">{member.role}</p>
@@ -39,6 +48,24 @@ const { member } = Astro.props;
     border-radius: 18px;
     overflow: hidden;
     background: var(--color-surface);
+  }
+
+  /* No photo supplied: dark card with the member's initial */
+  .team-card--no-photo {
+    background: var(--color-bg-black);
+  }
+
+  .team-card__initial {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-family: var(--font-display);
+    font-size: 72px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-display);
+    line-height: 1;
+    color: var(--color-text-inverse);
+    opacity: 0.25;
   }
 
   .team-card__media {

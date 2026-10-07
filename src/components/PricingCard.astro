@@ -3,7 +3,7 @@
  * PricingCard — homepage pricing.
  * Toggle "Per project / Monthly", "₹1,25,000 /project", features list,
  * "Book a strategy call", then a "Looking for more?" row with copy +
- * founder placeholder card.
+ * founder card.
  */
 import { CTA } from "../data/site";
 
@@ -62,17 +62,8 @@ const FEATURES = [
         This is our <strong>Premium Website</strong> tier. We also offer a Business Website from ₹60,000, a Mobile App MVP from ₹90,000, a SaaS Dashboard from ₹1,50,000, custom software quoted on scope, a Care Plan from ₹8,000/mo, and a Design Retainer from ₹30,000/mo. Payment is typically 40–50% advance, milestone-based, with final scope set after a free discovery call.
       </p>
       <div class="pricing__manager">
-        <img
-          class="pricing__manager-photo"
-          src="/images/small-84x85.jpg"
-          alt="Portrait of the founder at UiEdge"
-          width="84"
-          height="85"
-          loading="lazy"
-          decoding="async"
-        />
         <div class="pricing__manager-meta">
-          <p class="pricing__manager-name">⟨Founder name⟩</p>
+          <p class="pricing__manager-name">Hari</p>
           <p class="pricing__manager-role">Founder &amp; CEO at UiEdge · admin@uiedge.in</p>
         </div>
       </div>
@@ -271,13 +262,6 @@ const FEATURES = [
     display: flex;
     align-items: center;
     gap: var(--space-4);
-  }
-
-  .pricing__manager-photo {
-    width: 84px;
-    height: 85px;
-    border-radius: 50%;
-    object-fit: cover;
   }
 
   .pricing__manager-name {

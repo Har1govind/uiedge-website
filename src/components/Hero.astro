@@ -7,7 +7,7 @@
  *   "Studio" 51px below-right) + Services pills (4 x 18px/600 right column).
  *   Icons: row of 4 plus marks (16px).
  *   Bottom: H1 (22px/500, second sentence muted) + copyright (14px) +
- *   horizontal CTA card (image 125px + text 211px, radius 16px).
+ *   text-only CTA card (role, name, CTA pill; radius 16px).
  * Clients marquee strip overlaps the hero bottom (scale .95, pulled up).
  */
 import FitText from "./atoms/FitText.astro";
@@ -75,19 +75,9 @@ const KEYWORDS = [
           </div>
 
           <a class="hero__card" href="/contact">
-            <div class="hero__card-media">
-              <img
-                src="/images/team/lauren.jpg"
-                alt="Portrait of the founder at UiEdge"
-                width="170"
-                height="216"
-                loading="eager"
-                decoding="async"
-              />
-            </div>
             <div class="hero__card-body">
               <p class="hero__card-role">Founder &amp; CEO <span class="hero__card-company">at UiEdge</span></p>
-              <p class="hero__card-name">⟨Founder name⟩</p>
+              <p class="hero__card-name">Hari</p>
               <span class="hero__card-cta">Book a free consultation</span>
             </div>
           </a>
@@ -299,28 +289,15 @@ const KEYWORDS = [
     margin-top: auto;
   }
 
-  /* CTA card — horizontal: image (125px) + text (211px) */
+  /* CTA card — text only (role, name, CTA pill) */
   .hero__card {
     display: flex;
     gap: 0;
-    width: 336px;
+    min-width: 240px;
     flex-shrink: 0;
     background: var(--color-accent);
     border-radius: 16px;
     overflow: hidden;
-  }
-
-  .hero__card-media {
-    width: 125px;
-    padding: 6px;
-    flex-shrink: 0;
-  }
-
-  .hero__card-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
   }
 
   .hero__card-body {
