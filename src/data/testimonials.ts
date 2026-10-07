@@ -13,13 +13,13 @@ export interface Testimonial {
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    quote: "⟨Real client quote — collect after project 1⟩",
+    quote: "⟨Real client quote: collect after project 1⟩",
     name: "⟨Client name⟩",
     role: "⟨Company⟩",
     avatar: "/images/testimonials/james.jpg",
   },
   {
-    quote: "⟨Real client quote — collect after project 2⟩",
+    quote: "⟨Real client quote: collect after project 2⟩",
     name: "⟨Client name⟩",
     role: "⟨Company⟩",
     avatar: "/images/testimonials/emily.jpg",

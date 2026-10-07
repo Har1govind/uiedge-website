@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /portfolio
+
+Sitemap: https://uiedge.in/sitemap.xml

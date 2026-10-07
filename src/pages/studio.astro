@@ -13,24 +13,24 @@ import Counter from "../components/atoms/Counter.astro";
 import { TEAM } from "../data/team";
 import { PROJECTS } from "../data/projects";
 
-const title = "Studio";
+const title = "About UiEdge | Software Company in Kozhikode, Kerala";
 const description =
-  "Design is business strategy — so our process starts with your goals, not a moodboard. Meet the UiEdge studio and our 9-step delivery process.";
+  "UiEdge is a software development and product company in Kozhikode, Kerala, serving businesses across South India and worldwide. Meet the team and our process.";
 
 const STEPS = [
-  { num: "01", text: "Discovery — align on your business goals before anything else" },
-  { num: "02", text: "Research — understand your real users, not assumptions" },
-  { num: "03", text: "Strategy — decide what to build and why" },
-  { num: "04", text: "Wireframing — structure before style, so nothing gets built on a shaky foundation" },
-  { num: "05", text: "UI Design — premium, on-brand, conversion-focused interfaces" },
-  { num: "06", text: "Prototype — test the experience before a line of code is written" },
-  { num: "07", text: "Testing — validate decisions and reduce delivery risk" },
-  { num: "08", text: "Dev Handoff — clean specs so what ships matches what we designed" },
-  { num: "09", text: "Optimization — measure real usage after launch and improve it" },
+  { num: "01", text: "Discovery: align on your business goals and constraints before anything else" },
+  { num: "02", text: "Requirements: map workflows, users, and must-haves into a clear scope" },
+  { num: "03", text: "Architecture: choose the right stack, data model, and integrations" },
+  { num: "04", text: "UX/UI Design: interfaces your team and customers can adopt quickly" },
+  { num: "05", text: "Development: built in short sprints with demos you can review" },
+  { num: "06", text: "QA & Testing: functional, performance, and security checks before release" },
+  { num: "07", text: "Deployment: automated, repeatable releases to the cloud" },
+  { num: "08", text: "Launch & Training: go live with documentation and onboarding for your team" },
+  { num: "09", text: "Support & Growth: monitor, maintain, and keep shipping improvements" },
 ];
 
 const MILESTONES = [
-  { id: "(001)", description: "UiEdge studio founded", nomination: "Kozhikode, Kerala", year: "⟨founding year⟩" },
+  { id: "(001)", description: "UiEdge founded", nomination: "Kozhikode, Kerala", year: "⟨founding year⟩" },
   { id: "(002)", description: "Veterinary management platform launched", nomination: "UiEdge product", year: "2026" },
   { id: "(003)", description: "POS system launched", nomination: "UiEdge product", year: "2026" },
   { id: "(004)", description: "First client projects delivered", nomination: "Client work", year: "2025" },
@@ -40,12 +40,13 @@ const MILESTONES = [
 <BaseLayout title={title} description={description}>
   <section class="s-hero">
     <div class="container s-hero__inner">
-      <h1 class="s-hero__title">Studio.</h1>
+      <h1 class="s-hero__title">Company.</h1>
       <div class="s-hero__about">
         <p class="s-hero__eyebrow">About us</p>
         <p class="s-hero__lead">
-          We're a strategy-first UI/UX design and digital product studio based in Kozhikode, Kerala. Design is
-          business strategy — so our process starts with your goals, not a moodboard.
+          We're a software development and product company based in Kozhikode (Calicut), Kerala. We build custom
+          software, apps, and SaaS platforms for businesses across Kerala, South India, and worldwide, and we run our
+          own products, so every engagement starts from your business goals, not a feature list.
         </p>
       </div>
     </div>
@@ -81,15 +82,15 @@ const MILESTONES = [
   </section>
 
   <section class="section container s-approach">
-    <p class="s-approach__lead">Every project we take on is designed for long-term success.</p>
+    <p class="s-approach__lead">Every system we build is engineered for the long run.</p>
     <div class="s-approach__copy">
       <p>
-        Our approach is simple: we start from your business goals, not a moodboard, and focus on functionality,
-        speed, and clarity, ensuring that every project serves a clear purpose without unnecessary complexity.
+        Our approach is simple: we start from your business goals, not a feature wishlist, and focus on reliability,
+        speed, and clarity, ensuring that every line of code serves a clear purpose without unnecessary complexity.
       </p>
       <p class="s-approach__muted">
-        We don’t overpromise. We build well-designed, functional products — and the software we run ourselves holds
-        us to the same standard.
+        We don’t overpromise. We ship working, maintainable software, and the products we run ourselves hold us
+        to the same standard.
       </p>
     </div>
   </section>
@@ -143,7 +144,7 @@ const MILESTONES = [
       <div class="team__main">
         <div class="team__heading">
           <p class="team__logo">Meet the team</p>
-          <h2 class="team__title">The faces behind the projects.</h2>
+          <h2 class="team__title">The people behind the software.</h2>
         </div>
 
         <div class="team__join">
@@ -163,7 +164,7 @@ const MILESTONES = [
   </section>
 
   <section class="section container s-process">
-    <p class="s-process__eyebrow">How work gets done — design is business strategy, so our process starts with your goals, not a moodboard.</p>
+    <p class="s-process__eyebrow">How work gets done: every engagement starts with your business goals and ends with software running in production.</p>
     <ol class="s-process__steps">
       {STEPS.map((step) => (
         <li class="s-process__step">
@@ -178,12 +179,12 @@ const MILESTONES = [
     <p class="s-else__eyebrow">What else?</p>
     <div class="s-else__copy">
       <p class="s-else__lead">
-        We believe a product should be more than just an online presence—it’s a tool that works for your business.
-        That’s why we prioritize performance, user experience, and functionality in everything we create.
+        We believe software should be more than code that runs. It’s a tool that works for your business.
+        That’s why we prioritize reliability, performance, and usability in everything we build.
       </p>
       <p class="s-else__muted">
-        We build websites, apps, and SaaS products that are fast, efficient, and easy to manage, so you can focus on
-        what matters—running your business. It's the same standard we hold our own products to.
+        We build software, apps, and SaaS products that are fast, secure, and easy to maintain, so you can focus on
+        what matters: running your business. It's the same standard we hold our own products to.
       </p>
     </div>
   </section>

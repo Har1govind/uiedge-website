@@ -13,7 +13,7 @@ export interface BlogPost {
 }
 
 /** Byline shown on every post. */
-export const POST_AUTHOR = { name: "UiEdge Team", role: "Product Studio" };
+export const POST_AUTHOR = { name: "UiEdge Team", role: "Engineering & Products" };
 
 /** Rich-text block for the shared article body. */
 export type BodyBlock =
@@ -26,7 +26,7 @@ export type BodyBlock =
 export const POST_BODY: BodyBlock[] = [
   {
     type: "p",
-    text: "At UiEdge, we design and build websites, apps, and SaaS products that are meant to perform, not just look good.",
+    text: "At UiEdge, we build software, web and mobile apps, and SaaS products that are meant to perform in production, not just in a demo.",
   },
   {
     type: "p",
@@ -89,59 +89,59 @@ export const POST_BODY: BodyBlock[] = [
   { type: "h2", text: "Final Thoughts" },
   {
     type: "p",
-    text: "Speed isn’t just a technical metric—it directly impacts business success. Investing in website performance means happier users, better rankings, and increased revenue. If your site is slow, now is the time to fix it.",
+    text: "Speed isn’t just a technical metric. It directly impacts business success. Investing in website performance means happier users, better rankings, and increased revenue. If your site is slow, now is the time to fix it.",
   },
 ];
 
 /** Display + chain order matches the site's grid and Previous/Next links. */
 export const BLOG_POSTS: BlogPost[] = [
   {
-    slug: "what-ui-ux-design-actually-costs-in-india-2026",
-    title: "What UI/UX design actually costs in India (2026)",
+    slug: "what-custom-software-development-costs-in-india-2026",
+    title: "What custom software development actually costs in India (2026)",
     date: "Feb 2, 2026",
-    excerpt: "A straight answer to a question most studios dodge — what UI/UX design really costs and why.",
-    image: "/images/blog/how-a-well-designed-website-can-transform-your-business.jpg",
+    excerpt: "A straight answer to a question most vendors dodge: what custom software really costs in Kerala and across India, and what drives the price.",
+    image: "/images/blog/custom-software-cost-india.jpg",
   },
   {
-    slug: "a-practical-ux-audit-checklist-for-saas-products",
-    title: "A practical UX audit checklist for SaaS products",
+    slug: "build-vs-buy-custom-software-or-off-the-shelf",
+    title: "Build vs buy: custom software or an off-the-shelf tool?",
     date: "Jan 26, 2026",
-    excerpt: "A working checklist for spotting the UX issues that quietly cost SaaS products users and revenue.",
-    image: "/images/blog/the-psychology-of-color-in-branding-how-it-shapes-perception-and-behavior.jpg",
+    excerpt: "A practical framework for deciding when custom software pays off, and when a SaaS subscription is the smarter call.",
+    image: "/images/blog/build-vs-buy-software.jpg",
   },
   {
-    slug: "5-onboarding-fixes-that-lift-saas-activation",
-    title: "5 onboarding fixes that lift SaaS activation",
+    slug: "how-to-scope-an-mvp-that-actually-ships",
+    title: "How to scope an MVP that actually ships",
     date: "Jan 20, 2026",
-    excerpt: "Five concrete onboarding changes that help more new users reach their first real value faster.",
-    image: "/images/blog/speed-matters-why-website-performance-can-make-or-break-your-business.jpg",
+    excerpt: "Cut the feature list down to what proves the idea, and launch in weeks, not quarters.",
+    image: "/images/blog/scope-an-mvp.jpg",
   },
   {
-    slug: "when-and-when-not-to-build-a-design-system",
-    title: "When (and when not) to build a design system",
+    slug: "choosing-a-tech-stack-for-your-saas",
+    title: "Choosing a tech stack for your SaaS in 2026",
     date: "Dec 29, 2025",
-    excerpt: "Design systems pay off at a certain scale — here's how to tell if you've reached it yet.",
-    image: "/images/blog/dark-mode-a-trend-or-a-web-design-essential.jpg",
+    excerpt: "What really matters when picking languages, frameworks, and cloud for a product you'll run for years.",
+    image: "/images/blog/saas-tech-stack.jpg",
   },
   {
-    slug: "how-to-choose-a-ui-ux-design-partner-in-kerala",
-    title: "How to choose a UI/UX design partner in Kerala",
+    slug: "how-to-choose-a-software-development-partner-in-kerala",
+    title: "How to choose a software development partner in Kerala",
     date: "Jan 10, 2026",
-    excerpt: "What to actually look for when picking a design partner, beyond a nice-looking portfolio.",
-    image: "/images/blog/the-future-of-typography-trends-that-will-define-the-web.jpg",
+    excerpt: "What to actually look for in a development partner, beyond a nice-looking portfolio.",
+    image: "/images/blog/software-partner-kerala.jpg",
   },
   {
-    slug: "redesign-or-rebuild-how-to-decide",
-    title: "Redesign or rebuild? How to decide",
+    slug: "modernise-or-rebuild-legacy-software",
+    title: "Modernise or rebuild? What to do with legacy software",
     date: "Dec 29, 2025",
-    excerpt: "A framework for deciding whether your product needs a redesign or a ground-up rebuild.",
-    image: "/images/blog/brutalism-in-web-design-bold-aesthetic-or-just-bad-ux.jpg",
+    excerpt: "A framework for deciding whether your existing system needs modernising or a ground-up rebuild.",
+    image: "/images/blog/modernise-legacy-software.jpg",
   },
   {
     slug: "why-we-build-our-own-software-products",
-    title: "Why we build our own software products, not just client work",
+    title: "Why a software services company builds its own products",
     date: "Dec 29, 2025",
-    excerpt: "Running our own veterinary platform and POS system changes how we design for clients too.",
-    image: "/images/blog/why-custom-illustrations-make-brands-more-memorable.jpg",
+    excerpt: "Running our own veterinary platform and POS system makes us better engineers for our clients.",
+    image: "/images/blog/why-we-build-our-own-products.jpg",
   },
 ];

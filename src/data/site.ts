@@ -6,11 +6,11 @@ export const SITE = {
   name: "UiEdge",
   legalName: "UiEdge",
   description:
-    "Strategy-first UI/UX design and digital product studio in Kozhikode, Kerala. We design and build websites, apps, and SaaS products that drive real business results.",
+    "UiEdge is a software development company in Kozhikode, Kerala, building custom software, web and mobile apps, and SaaS products for businesses across Kerala, South India, and worldwide.",
   /** Override for production via PUBLIC_SITE_URL env var. */
   url: "https://uiedge.in/",
   email: "admin@uiedge.in",
-  footerTagline: "Design is business strategy.",
+  footerTagline: "Software that runs your business.",
   copyright: "© 2026 UiEdge. All rights reserved.",
 } as const;
 
@@ -21,13 +21,14 @@ export const CONTACT = {
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Studio", href: "/studio" },
+  { label: "Company", href: "/studio" },
+  { label: "Services", href: "/#services" },
   { label: "Projects", href: "/projects" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
-/** Footer Navigation column — Home / Studio / Projects / Blog. */
+/** Footer Navigation column — Home / Company / Services / Projects / Blog. */
 export const FOOTER_NAV = NAV_LINKS.filter((link) => link.label !== "Contact");
 
 export const SOCIALS = [
@@ -42,6 +43,6 @@ export const LEGAL_LINKS = [
 
 /** CTA label + destination used across the site. */
 export const CTA = {
-  label: "Book a strategy call",
+  label: "Book a free consultation",
   href: "/contact",
 } as const;

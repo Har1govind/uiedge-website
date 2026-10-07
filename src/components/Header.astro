@@ -3,18 +3,20 @@
  * Header — fixed global navigation.
  * [measured] 60px tall, #141414 + backdrop-filter blur(7px) + 1px border.
  * Logo: UiEdge mark (public/images/logo/uiedge-black.png).
- * Desktop nav: Studio · Projects · Blog · Contact — Inter 600 16px.
+ * Desktop nav: Company · Services · Projects · Blog · Contact — Inter 600 16px.
  * Hamburger visible at ALL widths; no CTA pill in header (CTA lives in hero).
  */
 const NAV = [
-  { label: "Studio", href: "/studio", count: "" },
+  { label: "Company", href: "/studio", count: "" },
+  { label: "Services", href: "/#services", count: "" },
   { label: "Projects", href: "/projects", count: "" },
   { label: "Blog", href: "/blog", count: "" },
   { label: "Contact", href: "/contact", count: "" },
 ];
 const MOBILE_NAV = [
   { label: "Home", href: "/" },
-  { label: "Studio", href: "/studio" },
+  { label: "Company", href: "/studio" },
+  { label: "Services", href: "/#services" },
   { label: "Projects", href: "/projects" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
@@ -23,7 +25,7 @@ const MOBILE_NAV = [
 
 <header class="site-header" data-header>
   <nav class="container site-header__top" aria-label="Primary">
-    <a class="site-header__logo" href="/" aria-label="UiEdge — Home">
+    <a class="site-header__logo" href="/" aria-label="UiEdge home">
       <img class="site-header__logo-mark" src="/images/logo/uiedge-black.png" alt="UiEdge" width="28" height="28" />
     </a>
 
